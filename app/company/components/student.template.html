@@ -1,0 +1,153 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/company">Company</a></li>
+                            <li class="breadcrumb-item active">Student</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content-single head-ad-st">
+                    <h2><span class="icon-user"></span>Students Information</h2>
+                    <h1>{{ student?.user_info?.firstName }} {{ student?.user_info?.lastName }}</h1>
+                    <div class="new-list-r">
+                        <ul>
+                            <li>
+                                <p>GPA</p><span>{{ student?.GPA }}</span>
+                            </li>
+                            <li>
+                                <p>Phone Number</p><span>{{ student?.user_info?.phone }}</span>
+                            </li>
+                            <li>
+                                <p>City</p><span>{{ oppertunity?.city }}</span>
+                            </li>
+                            <li>
+                                <p>Training Status</p><span>{{ student?.trainingStatus }}</span>
+                            </li>
+                            <li>
+                                <p>Major</p><span>{{ oppertunity?.academic_department?.name }}</span>
+                            </li>
+                            <li>
+                                <p>Training Type</p><span>{{ oppertunity?.training_program?.typeOfProgram }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="accordion">
+                    <div class="tit-sing-stu curs-po-n">
+                        <div class="pull-left">
+                            <span class="active-pag">Active</span>
+                            <div class="txt-ti-stu">
+                                <h3>{{ oppertunity?.englishTitle }}</h3>
+                                <button class="btn-mk">{{ oppertunity?.company?.englishName}}</button>
+                                <button class="btn-mk">{{ oppertunity?.city }}</button>
+                            </div>
+                        </div>
+                        <button class="pull-right new-btn-k"><img src="/assets/images/icons/note2.png">Fill Evaluation</button>
+                    </div>
+                    <div class="content-topic content-topic-bg">
+                        <div class="pull-left topic-lo">
+                            <div class="new-txt-t">
+                                <h3>Opportuinty Job Description</h3>
+                                <p>{{ oppertunity?.englishDescription }}</p>
+                                <h3>Training Plan</h3>
+                                <p>{{ oppertunity?.trainingPlan }}</p>
+                            </div>
+                            <ul class="list-date">
+                                <li *ngIf="oppertunity?.training_program?.startDate != null">{{ oppertunity?.training_program?.startDate | date:longDate }}</li>
+                                <li>by <span>{{ oppertunity?.company?.englishName }}</span> </li>
+                                <li>| in <span>{{ oppertunity?.academic_department?.name }}</span></li>
+                            </ul>
+                            <div class="boxs-stu new-txt-t">
+                                <div class="half-boxs">
+                                    <h3>Company’s Supervisor</h3>
+                                    <select class="new-select-name">
+                                                    <option>Khaled</option>
+                                                    <option>Hassan</option>
+                                                </select>
+                                    <ul>
+                                        <li>Phone:<span>+ (124) 567 891 011</span></li>
+                                        <li>Email:<span>Fullname@companyname.com</span></li>
+                                    </ul>
+                                </div>
+                                <div class="half-boxs">
+                                    <h3>University’s Coordinaror</h3>
+                                    <ul>
+                                        <li>Full Name</li>
+                                        <li>Job Title -<span> Department</span></li>
+                                        <li>Phone:<span>+ (124) 567 891 011</span></li>
+                                        <li>Email:<span>Fullname@companyname.com</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-left topic-lk">
+                            <div class="fi-wed-t seca-wed">
+                                <h3><img class="new-icon-lo" src="/assets/images/icons/menu-icon.png">Overview</h3>
+                                <ul>
+                                    <li>
+                                        <h4>Duration</h4>
+                                        <p>8 Weeks</p>
+                                    </li>
+                                    <li>
+                                        <h4>Salary</h4>
+                                        <p>{{ oppertunity?.salary }} SAR</p>
+                                    </li>
+                                    <li>
+                                        <h4>Housing</h4>
+                                        <p *ngIf="oppertunity.housingExpenses == 1">Yes</p>
+                                        <p *ngIf="oppertunity.housingExpenses != 1">No</p>
+                                    </li>
+                                    <li>
+                                        <h4>Transportation</h4>
+                                        <p *ngIf="oppertunity.transportationExpenses == 1">Yes</p>
+                                        <p *ngIf="oppertunity.transportationExpenses != 1">No</p>
+                                    </li>
+                                    <li>
+                                        <h4>Number of Students</h4>
+                                        <p>{{ oppertunity?.numberOfOpportunities }}</p>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="fi-wed-t three-wed">
+                                <h3><span class="icon-map-marker"></span>Location</h3>
+                                <h2>Dhahran - Eastern Province</h2>
+                                <img width="270" src="http://static-maps.yandex.ru/1.x/?lang=en-US&ll=-73.7638,42.6564&z=13&l=map&size=270,180" alt="Map">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

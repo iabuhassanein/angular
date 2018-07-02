@@ -1,0 +1,183 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/training-department">Training Department</a></li>
+                            <li class="breadcrumb-item active">Companies Management</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="bg-white">
+                    <div class="fi-wed-t seca-wed bg-bla">
+                        <ul>
+                            <li class="active">
+                                <a href="#1a" data-toggle="tab">
+                                    <h3><img src="/assets/images/icons/rocket.png">Pending Companies</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#2a" data-toggle="tab">
+                                    <h3><span class="icon-portfolio"></span>All Companies</h3>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active" id="1a">
+                        <div class="content-single-pl content-single-pln">
+                            <div class="form-to-tabp">
+                                <div class="form-to-tab-mk">
+                                    <div class="form-group half-wnk">
+                                        <h3 class="tit-seach"><img src="/assets/images/icons/e-search.png">Search</h3>
+                                        <input type="text" placeholder="Search..." class="form-control">
+                                        <select class="form-control new-arrow sel-styk" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tit-sing-stu">
+                                <div class="pull-left">
+                                    <div class="txt-ti-stu new-opp">
+                                        <h3>Companies Management</h3>
+                                        <p><span class="icon-portfolio"></span>Pending Companies</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-tab-mo">
+                                <div class="last-loader" *ngIf="(comsData.length == 0) && !noMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                                <div class="content-txt" *ngFor="let com of comsData; let $i = index">
+                                    <div class="head-yo">
+                                        <a class="hed-left redial-nm" href="#">
+                                            <img class="media-object" src="{{_base_url_img }}image/80x80/{{com.logo}}" alt="#">
+                                        </a>
+                                        <div class="head-body">
+                                            <h2 class="media-heading">{{ com.englishName }}
+                                                <span class="appl-po-to">More Info</span>
+                                            </h2>
+                                            <ul>
+                                                <li>{{ com.city }} | {{ com.country }}</li>
+                                                <li>{{ com.filed }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <button class="appl" (click)="approveCompany($i, com.id)">{{ (com.approved)?'Approved':'Approve' }}</button>
+                                </div>
+
+                                <ul class="pagination new-paginati" *ngIf="coms_pages.length > 1">
+                                    <li class="page-item">
+                                        <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                                            <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item" *ngFor="let page of coms_pages; let $i = index;"><a class="page-link" [class.active]="currentPage == $i+1" (click)="goToPage($i+1)">{{ $i+1 }}</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                                            <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="2a">
+                        <div class="content-single-pl content-single-pln">
+                            <div class="form-to-tabp">
+                                <div class="form-to-tab-mk">
+                                    <div class="form-group half-wnk">
+                                        <h3 class="tit-seach"><img src="/assets/images/icons/e-search.png">Search</h3>
+                                        <input type="text" placeholder="Search..." class="form-control">
+                                        <select class="form-control new-arrow sel-styk" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tit-sing-stu">
+                                <div class="pull-left">
+                                    <div class="txt-ti-stu new-opp">
+                                        <h3>Companies Management</h3>
+                                        <p><span class="icon-portfolio"></span>All Companies</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-topic">
+                                <div class="table-reports table-reportsn">
+                                    <div class="table-responsive">
+                                        <div class="last-loader" *ngIf="(comsDataA.length == 0) && !noMoreA"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Company Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>City<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                    <th>Year<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>Filed<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                    <th>Admin Account<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="new-scrolb">
+
+                                                <tr *ngFor="let com of comsDataA">
+                                                    <td>{{ com.englishName }}</td>
+                                                    <td>{{ com.city }}</td>
+                                                    <td>{{ com.year }}</td>
+                                                    <td>{{ com.filed }}</td>
+                                                    <td>{{ com.admin?.user_info?.firstName }} {{ com.admin?.user_info?.lastName
+                                                        }}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pagination new-paginati" *ngIf="coms_pagesA.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageA(currentPageA - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of coms_pagesA; let $i = index;"><a class="page-link" [class.active]="currentPageA == $i+1" (click)="goToPageA($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageA(currentPageA + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

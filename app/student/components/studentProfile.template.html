@@ -1,0 +1,457 @@
+<section class="header-section-sin">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="tit-page-wid">
+                    <div class="content-i">
+                        <h3 class="tit-stu">Hi, <span>{{ studentProfile?.user_info?.firstName }} {{ studentProfile?.user_info?.lastName }}</span>                            welcome to KFUPM<br>internships portal.</h3>
+                    </div>
+                </div>
+                <div class="tit-page-wid">
+                    <div class="page-wid-half">
+                        <div class="list-i">
+                            <ul>
+                                <li>
+                                    <p>GPA</p><span>{{ studentProfile?.GPA }}</span>
+                                </li>
+                                <li>
+                                    <p>Phone Number</p><span>{{ studentProfile?.user_info?.phone }}</span>
+                                </li>
+                                <li>
+                                    <p>Training Status</p><span>{{ studentProfile?.trainingStatus }}</span>
+                                </li>
+                                <li>
+                                    <p>Major</p><span>{{ studentProfile?.major }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="list-ov">
+                            <h3><span class="icon-bell"></span>Notifications</h3>
+                            <ul class="list-op" [class.noMoreNote]="noMoreNote" id="notification_bar" (scroll)="onScroll($event)">
+                                <li *ngFor="let note of notifications; let $i = index;" [class.active]="note.read == 0" (click)="viewNotification($i)">
+                                    <p>{{ note.title }}</p>
+                                </li>
+                                <div class="last-loader" *ngIf="!noMoreNote"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="page-wid-half">
+                        <div class="item-hr">
+                            <a (click)="OpenStudentCVUpload()">
+                                <div class="media head-yi">
+                                    <a class="media-left">
+                                        <span class="media-object icon-way new-icon-note"></span>
+                                    </a>
+                                    <div class="media-body">
+                                        <h2 class="media-heading">Upload C.V.</h2>
+                                        <p>Request to change my traning program from summer to co-op or vice versa.</p>
+                                    </div>
+                                    <input style="display: none !important" id="uploadCVInput" type="file" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx" (change)="UploadCVFile($event)">
+
+                                </div>
+                            </a>
+                            <div class="media head-yi">
+                                <a class="media-left" href="#">
+                                    <span class="media-object icon-note new-icon-note"></span>
+                                </a>
+                                <div class="media-body">
+                                    <h2 class="media-heading">Apply for Petition</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                        .
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_55">
+    <div class="container">
+        <div class="row">
+            <div class="tit-page-wid">
+                <div class="new-box-top">
+                    <h3><span class="icon-speaker"></span>Announcements</h3>
+                    <div class="owl-th">
+                        <owl-carousel [options]="{rewindNav: true, pagination: true, loop: true, dots: true, autoplay: true, autoplayTimeout: 2500, autoplayHoverPause: true, items: 1}"
+                            [items]="announcements" [carouselClasses]="['owl-carousel']">
+                            <div class="item" *ngFor="let item of announcements">
+                                <div class="first_ite_s">
+                                    <div class="text_ite_s">
+                                        <h4>{{ item.title }}</h4>
+                                        <p>{{ item.description | str_limit : 150 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </owl-carousel>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6 new-padd-f">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header_s_2 tabs-header-s-2 tabs-header-s-m">
+                    <ul class="nav nav-tabs tabs-index ad-index">
+                        <li class="active"><a data-toggle="tab" href="#home">Available Opportunities</a></li>
+                        <li><a data-toggle="tab" href="#menu1">Pending Offers</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content new-rt-y">
+                    <div id="home" class="tab-pane fade in active">
+                        <div class="form-to-tab-m">
+                            <div class="form-group half-wn">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <select class="form-control new-arrow sel-sty" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                            </div>
+                            <div class="sort-nm pull-left">
+                                <p>Sort by:</p>
+                                <span>Ascending  ↑</span>
+                                <span>Descending  ↓</span>
+                            </div>
+                            <div class="Status-nm pull-right">
+                                <span><img src="/assets/images/icons/tag-icon.png">Training Type +</span>
+                                <span><img src="/assets/images/icons/menu-icon.png">Status +</span>
+                            </div>
+                        </div>
+                        <hr class="line-nm">
+                        <div class="content-tab-n">
+                            <div class="last-loader" *ngIf="(oppData.length == 0) && !noMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+
+                            <div class="content-txt" *ngFor="let opp of oppData">
+                                <div class="head-yo">
+                                    <a class="hed-left redial-nm" href="#">
+                                        <img class="media-object" src="{{ (opp.company)? _base_url_img + '80x80/' + opp.company?.logo :'/assets/images/project-img.jpg' }}"
+                                            alt="#">
+                                    </a>
+                                    <div class="head-body">
+                                        <h2 class="media-heading">{{ opp.englishTitle }}
+                                            <span class="appl-po-to" routerLink="/student/oppertunity/{{ opp.id }}">More Info</span>
+                                        </h2>
+                                        <ul>
+                                            <li>{{ opp.company?.englishName }}</li>
+                                            <li>{{ opp.city }}</li>
+                                            <li class="active-li"><span>{{ opp.numberOfOpportunities}}</span>Available</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button class="appl" routerLink="/student/oppertunity/{{ opp.id }}">View</button>
+                            </div>
+                            <ul class="pagination new-paginati" *ngIf="opp_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of opp_pages; let $i = index;"><a class="page-link" (click)="goToPage($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <div class="form-to-tab-m">
+                            <div class="form-group half-wn">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <select class="form-control new-arrow sel-sty" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                            </div>
+                            <div class="sort-nm pull-left">
+                                <p>Sort by:</p>
+                                <span>Ascending  ↑</span>
+                                <span>Descending  ↓</span>
+                            </div>
+                            <div class="Status-nm pull-right">
+                                <span>Training Type +</span>
+                                <span>Status +</span>
+                            </div>
+                        </div>
+                        <hr class="line-nm">
+                        <div class="popup-we">
+                            <h3><span class="icon-gleamcopy"></span>Accepte Offer?</h3>
+                            <p><span>Are you sure to accepte the offer?</span>
+                                <br>all the other offers will be rejected.</p>
+                            <div class="popup-btn">
+
+                                <button class="accept-btn">Accepte</button>
+                                <button class="cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="content-tab-n">
+                            <div *ngIf="acurrentPage == 1">
+                                <div class="content-hoi">
+                                    <div class="new-tit-um">
+                                        <span class="icon-portfolio"></span>
+                                        <h3>Abroad Opportunities</h3>
+                                    </div>
+
+                                    <div class="content-txt" *ngFor="let opp of abroadOppertunities; let $i = index">
+                                        <div class="head-yo">
+                                            <a class="hed-left redial-nm" href="#">
+                                                <img class="media-object" src="{{ (opp.opportunity?.company)? _base_url_img + '80x80/' + opp.opportunity?.company?.logo :'/assets/images/project-img.jpg' }}"
+                                                    alt="#">
+                                            </a>
+                                            <div class="head-body">
+                                                <h2 class="media-heading">{{ opp.opportunity?.englishTitle }}
+                                                    <span class="appl-po-to" routerLink="/student/oppertunity/{{ opp.opportunity?.id }}">More Info</span>
+                                                </h2>
+                                                <ul>
+                                                    <li>{{ opp.opportunity?.company?.englishName }}</li>
+                                                    <li>{{ opp.opportunity?.city }}</li>
+                                                    <li class="active-li"><span>{{ opp.opportunity?.numberOfOpportunities}}</span>Available</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button class="appl" (click)="acceptOpp(opp.opportunity?.id)" [class.submit-btn-loader]="isAccepting" [disabled]="isAccepting">Accept <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div *ngIf="acurrentPage == 1">
+                                <div class="content-hoi">
+                                    <div class="new-tit-um">
+                                        <span class="icon-portfolio"></span>
+                                        <h3>Personally Obtained Opportunities</h3>
+                                    </div>
+
+                                    <div class="content-txt" *ngFor="let opp of obtainedOppertunities; let $i = index">
+                                        <div class="head-yo">
+                                            <a class="hed-left redial-nm" href="#">
+                                                <img class="media-object" src="{{ (opp.opportunity?.company)? _base_url_img + '80x80/' + opp.opportunity?.company?.logo :'/assets/images/project-img.jpg' }}"
+                                                    alt="#">
+                                            </a>
+                                            <div class="head-body">
+                                                <h2 class="media-heading">{{ opp.opportunity?.englishTitle }}
+                                                    <span class="appl-po-to" routerLink="/student/oppertunity/{{ opp.opportunity?.id }}">More Info</span>
+                                                </h2>
+                                                <ul>
+                                                    <li>{{ opp.opportunity?.company?.englishName }}</li>
+                                                    <li>{{ opp.opportunity?.city }}</li>
+                                                    <li class="active-li"><span>{{ opp.opportunity?.numberOfOpportunities}}</span>Available</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <button class="appl" (click)="acceptOpp(opp.opportunity?.id)" [class.submit-btn-loader]="isAccepting" [disabled]="isAccepting">Accept <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="new-tit-um">
+                                <span class="icon-portfolio"></span>
+                                <h3>All Opportunities</h3>
+                            </div>
+                            <div class="content-txt" *ngFor="let opp of aoppData; let $i = index">
+                                <div class="head-yo">
+                                    <a class="hed-left redial-nm" href="#">
+                                        <img class="media-object" src="{{ (opp.opportunity?.company)? _base_url_img + '80x80/' + opp.opportunity?.company?.logo :'/assets/images/project-img.jpg' }}"
+                                            alt="#">
+                                    </a>
+                                    <div class="head-body">
+                                        <h2 class="media-heading">{{ opp.opportunity?.englishTitle }}
+                                            <span class="appl-po-to" routerLink="/student/oppertunity/{{ opp.opportunity?.id }}">More Info</span>
+                                        </h2>
+                                        <ul>
+                                            <li>{{ opp.opportunity?.company?.englishName }}</li>
+                                            <li>{{ opp.opportunity?.city }}</li>
+                                            <li class="active-li"><span>{{ opp.opportunity?.numberOfOpportunities}}</span>Available</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button class="appl" (click)="acceptOpp(opp.opportunity?.id)" [class.submit-btn-loader]="isAccepting" [disabled]="isAccepting">Accept <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            </div>
+
+
+                            <ul class="pagination new-paginati" *ngIf="aopp_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageA(acurrentPage - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of aopp_pages; let $i = index;"><a class="page-link" (click)="goToPageA($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageA(acurrentPage + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content-single">
+                    <div class="tit-sing-stu">
+                        <div class="pull-left">
+                            <span class="active-pag">Active</span>
+                            <div class="txt-ti-stu">
+                                <h3>Software Quality Assurance Engineer</h3>
+                                <a href="#">Saudi Aramco</a>
+                                <a href="#">Khobar</a>
+                            </div>
+                        </div>
+                        <button class="pull-right btn-ko"><img class="new-icon-lo" src="/assets/images/icons/upload.png">Upload File</button>
+                    </div>
+                    <div class="content-topic">
+                        <div class="pull-left topic-lo">
+                            <div class="new-txt-t">
+                                <h3>Opportuinty Job Description</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                                    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                                    cupidatat non proident.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                                <h3>Training Plan</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                                    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                                    cupidatat non proident.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                                    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                            </div>
+                            <ul class="list-date">
+                                <li>October 08, 2016 </li>
+                                <li>by <span>Saudi Aramco</span> </li>
+                                <li>| in<span>College of Computer Science & Engineering</span></li>
+                            </ul>
+                            <div class="about-stu new-txt-to">
+                                <h3>About Company</h3>
+                                <div class="media all-elem">
+                                    <a class="media-left img-ui-k" href="#">
+                                        <img class="media-object" src="/assets/images/index-two.jpg" alt="#">
+                                    </a>
+                                    <div class="media-body img-ui-m">
+                                        <h4 class="media-heading">Saudi Aramco</h4>
+                                        <span>Dhahran - Eastern Province</span>
+                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
+                                            quasi architecto beatae.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="boxs-stu new-txt-t">
+                                <div class="half-boxs">
+                                    <h3>Company’s Supervisor</h3>
+                                    <ul>
+                                        <li>Full Name</li>
+                                        <li>Job Title -<span> Department</span></li>
+                                        <li>Phone:<span>+ (124) 567 891 011</span></li>
+                                        <li>Email:<span>Fullname@companyname.com</span></li>
+                                    </ul>
+                                </div>
+                                <div class="half-boxs">
+                                    <h3>Company’s Supervisor</h3>
+                                    <ul>
+                                        <li>Full Name</li>
+                                        <li>Job Title -<span> Department</span></li>
+                                        <li>Phone:<span>+ (124) 567 891 011</span></li>
+                                        <li>Email:<span>Fullname@companyname.com</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-left topic-lk">
+                            <div class="fi-wed-t fi-wed">
+                                <h3><span class="icon-file"></span>Your Uploaded Files</h3>
+                                <ul>
+                                    <li>
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>Obligation .doc</h4>
+                                        <p>Oct 08, 2016</p>
+                                    </li>
+                                    <li>
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>Obligation .doc</h4>
+                                        <p>Oct 08, 2016</p>
+                                    </li>
+                                    <li>
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>Obligation .doc</h4>
+                                        <p>Oct 08, 2016</p>
+                                    </li>
+                                    <li>
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>Obligation .doc</h4>
+                                        <p>Oct 08, 2016</p>
+                                    </li>
+                                    <li>
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>Obligation .doc</h4>
+                                        <p>Oct 08, 2016</p>
+                                    </li>
+                                    <li>
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>Obligation .doc</h4>
+                                        <p>Oct 08, 2016</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="fi-wed-t seca-wed">
+                                <h3><img class="new-icon-lo" src="/assets/images/icons/menu-icon.png">Overview</h3>
+                                <ul>
+                                    <li>
+                                        <h4>Duration</h4>
+                                        <p>8 Weeks</p>
+                                    </li>
+                                    <li>
+                                        <h4>Salary</h4>
+                                        <p>2300 SAR</p>
+                                    </li>
+                                    <li>
+                                        <h4>Housing</h4>
+                                        <p>Yes</p>
+                                    </li>
+                                    <li>
+                                        <h4>Transportation</h4>
+                                        <p>Yes</p>
+                                    </li>
+                                    <li>
+                                        <h4>Number of Students</h4>
+                                        <p>15</p>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="fi-wed-t three-wed">
+                                <h3><span class="icon-map-marker"></span>Location</h3>
+                                <h2>Dhahran - Eastern Province</h2>
+                                <img width="270" src="http://static-maps.yandex.ru/1.x/?lang=en-US&ll=-73.7638,42.6564&z=13&l=map&size=270,180" alt="Map">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->

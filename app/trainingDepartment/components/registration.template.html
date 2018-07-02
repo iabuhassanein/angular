@@ -1,0 +1,59 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/training-department">Training Department</a></li>
+                            <li class="breadcrumb-item active">Registration</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bg-white">
+                        <div class="newn-padd">
+                            <div class="new-chec pull-left">
+                                <h4>Registration</h4>
+                            </div>
+                            <div class="txt-centern pull-right">
+                                <button type="submit" class="btn new-green-m">Create New Training +</button>
+                            </div>
+                        </div>
+                        <div class="list-regsy">
+
+                            <div class="one-register" *ngFor="let term of terms">
+                                <div class="new-regy pull-left">
+                                    <h4>{{ term.name }}</h4>
+                                    <span>{{ term.training_program?.typeOfProgram }}</span>
+                                    <p>Created in {{ term.created_at | date:longDate }} by {{ term.user_info?.firstName }} {{ term.user_info?.lastName }}
+                                        <br>Number of students: {{ term.numberOfStudents }}</p>
+                                </div>
+                                <div class="new-regy-m pull-right">
+                                    <a routerLink="/training-department/term/{{term.id}}" class="btn-closr">{{ (term.status == 'open')?'Close Registration':'View' }}</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

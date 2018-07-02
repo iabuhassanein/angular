@@ -1,0 +1,222 @@
+<section class="header-section-sin header-big-j">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="tit-page-wid">
+                    <div class="content-i">
+                        <h3 class="tit-stu">Hi, <span>{{ fullName }}</span> welcome to KFUPM<br>internships portal.</h3>
+                    </div>
+                </div>
+                <div class="tit-page-wid">
+                    <div class="page-wid-half">
+                        <div class="list-i-txt">
+                            <h3>{{ companyName }}</h3>
+                            <p>{{ companyAbout }}</p>
+                        </div>
+                        <div class="list-ov">
+                            <h3><span class="icon-bell"></span>Notifications</h3>
+                            <ul class="list-op" [class.noMoreNote]="noMoreNote" id="notification_bar" (scroll)="onScroll($event)">
+                                <li *ngFor="let note of notifications; let $i = index;" [class.active]="note.read == 0" (click)="viewNotification($i)">
+                                    <p>{{ note.title }}</p>
+                                </li>
+                                <div class="last-loader" *ngIf="!noMoreNote"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="page-wid-half">
+                        <div class="item-hr">
+                            <a routerLink="/company/new-oppertunity">
+                                <div class="media head-yi">
+                                    <div class="media-left" routerLink="/company/new-oppertunity">
+                                        <span class="icon-portfolio"></span>
+                                    </div>
+                                    <div class="media-body">
+                                        <h2 class="media-heading">New Oppertunity</h2>
+                                        <p>Post a new opportunities, once accepted it will be visible to KFUPM students.</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a routerLink="/company/new-supervisor">
+                                <div class="media head-yi">
+                                    <div class="media-left" routerLink="/company/new-supervisor">
+                                        <span class="icon-note"></span>
+                                    </div>
+                                    <div class="media-body">
+                                        <h2 class="media-heading">Create Supervisor Account</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                            .</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a routerLink="/company/profile">
+                                <div class="media head-yi">
+                                    <div class="media-left" routerLink="/company/profile">
+                                        <span class="icon-id"></span>
+                                    </div>
+                                    <div class="media-body">
+                                        <h2 class="media-heading">Company Profile</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                            .</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header_s_2 tabs-header-s-2 tabs-header-s-m">
+                    <ul class="nav nav-tabs tabs-index ad-index">
+                        <li class="active"><a data-toggle="tab" href="#home">Your Opportunities</a></li>
+                        <li><a data-toggle="tab" href="#menu1">Interns</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content new-rt-y">
+                    <div id="home" class="tab-pane fade in active">
+                        <div class="form-to-tab-m">
+                            <div class="form-group half-wn">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <select class="form-control new-arrow sel-sty" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                            </div>
+                            <div class="sort-nm pull-left">
+                                <p>Sort by:</p>
+                                <a href="#"><span>Ascending  ↑</span></a>
+                                <a href="#"><span>Descending  ↓</span></a>
+                            </div>
+                            <div class="Status-nm pull-right">
+                                <span><img src="/assets/images/icons/tag-icon.png">Training Type +</span>
+                                <span><img src="/assets/images/icons/menu-icon.png">Status +</span>
+                            </div>
+                        </div>
+                        <hr class="line-nm">
+                        <div class="content-tab-n">
+                            <div class="last-loader" *ngIf="(oppData.length == 0) && !noMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                            <div class="content-txt" *ngFor="let opp of oppData">
+                                <div class="head-yo">
+                                    <span class="rdial-col" [class.rdial-wating]="(!opp.approvedByTrainingDepartment) || (!opp.approvedByAcademicDepartment)">
+                                            <p></p>
+                                        </span>
+                                    <div class="head-body">
+                                        <h2 class="media-heading">{{ opp.englishTitle }}
+                                        </h2>
+                                        <ul [class.rdial-wating]="(!opp.approvedByTrainingDepartment) || (!opp.approvedByAcademicDepartment)">
+                                            <li>{{ opp.trainingProgram?.typeOfProgram }}</li>
+                                            <li>{{ opp.city }}</li>
+                                            <li class="active-li" *ngIf="opp.approvedByTrainingDepartment && opp.approvedByAcademicDepartment"><span *ngIf="opp.applied">{{ opp.applied }}</span><span *ngIf="!opp.applied">0</span>Applied</li>
+                                            <li class="active-li" *ngIf="(!opp.approvedByTrainingDepartment) || (!opp.approvedByAcademicDepartment)"><span></span>Wating Approval</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button class="appl" routerLink="/company/oppertunity/{{ opp.id }}">View</button>
+                            </div>
+
+                            <ul class="pagination new-paginati" *ngIf="opp_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of opp_pages; let $i = index;"><a class="page-link" (click)="goToPage($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <div class="form-to-tab-m">
+                            <div class="form-group half-wn">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <select class="form-control new-arrow sel-sty" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                            </div>
+                            <div class="sort-nm pull-left">
+                                <p>Sort by:</p>
+                                <a href="#"><span>Ascending  ↑</span></a>
+                                <a href="#"><span>Descending  ↓</span></a>
+                            </div>
+                            <div class="Status-nm pull-right">
+                                <span>Training Type +</span>
+                                <span>Status +</span>
+                            </div>
+                        </div>
+                        <hr class="line-nm">
+                        <div class="popup-we">
+                            <h3><span class="icon-gleamcopy"></span>Accepte Offer?</h3>
+                            <p><span>Are you sure to accepte the offer?</span>
+                                <br>all the other offers will be rejected.</p>
+                            <div class="popup-btn">
+
+                                <button class="accept-btn">Accepte</button>
+                                <button class="cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="content-tab-n">
+                            <div class="new-tit-pages-r">
+                                <h3>Students</h3>
+                                <h3>Supervisor</h3>
+                            </div>
+                            <div class="last-loader" *ngIf="(stdData.length == 0) && !noMoreS"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                            <div class="content-txt" *ngFor="let std of stdData; let $i = index">
+                                <div class="head-ym-e">
+                                    <a class="hed-left redial-co" routerLink="/company/student/{{ std.student?.id }}">
+                                        <span>{{ getFirstChar(std.student?.firstName) }}</span>
+                                    </a>
+                                    <div class="head-body">
+                                        <h2 class="media-heading">{{ std.student?.firstName }} {{ std.student?.lastName }}
+                                            <span class="appl-po-to" routerLink="/company/student/{{ std.student?.id }}">More Info</span>
+                                        </h2>
+                                        <ul>
+                                            <li>{{ std.student?.phone }}</li>
+                                            <li>{{ std.opportunities[0]?.englishTitle }}</li>
+                                            <li>{{ std.opportunities[0]?.trainingProgram?.typeOfProgram }}</li>
+                                            <li>{{ std.opportunities[0]?.city }}</li>
+                                        </ul>
+                                    </div>
+                                    <select class="appp-select-y" (change)="changeSupervisore($event.target.value, std.student?.id)" [disabled]="changingSupvs">
+                                            <option value="0">Select Supervisor</option>
+                                            <option *ngFor="let sprv of supervisorsData" value="{{ sprv.id }}" [selected]="sprv.id == std.student?.supervisor">{{ sprv.userInfo?.firstName }} {{ sprv.userInfo?.lastName }}</option>
+                                        </select>
+                                </div>
+                            </div>
+
+                            <ul class="pagination new-paginati" *ngIf="std_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageS(currentPageS - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of std_pages; let $i = index;"><a class="page-link" (click)="goToPageS($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageS(currentPageS + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

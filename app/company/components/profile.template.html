@@ -1,0 +1,208 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/company">Company</a></li>
+                            <li class="breadcrumb-item active">Registeration</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_4">
+    <div class="container">
+        <!-- <form> -->
+        <div class="row">
+            <div class="bg-white bg-whiteo">
+                <h3><span class="icon-portfolio"></span>Company Information</h3>
+                <div class="col-md-8">
+                    <form class="new-form-b" [formGroup]="companyRegister" method="POST" (ngSubmit)="companyRegisterSubmit()">
+                        <div class="form-group">
+                            <label for="companyName">Company Name:</label>
+                            <div class="input">
+                                <input name="companyName" formControlName="companyName" #companyName id="companyName" type="text" class="form-control">
+                                <control-messages [control]="companyRegister.controls.companyName"></control-messages>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyAddress">Address:</label>
+                            <div class="input">
+                                <input #companyAddress formControlName="companyAddress" name="companyAddress" type="text" class="form-control" id="companyAddress">
+                                <control-messages [control]="companyRegister.controls.companyAddress"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyCountry">Country:</label>
+                            <div class="input">
+                                <input #companyCountry formControlName="companyCountry" name="companyCountry" type="text" class="form-control" id="companyCountry">
+                                <control-messages [control]="companyRegister.controls.companyCountry"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyCity">City:</label>
+                            <div class="input">
+                                <input #companyCity formControlName="companyCity" name="companyCity" type="text" class="form-control" id="companyCity">
+                                <control-messages [control]="companyRegister.controls.companyCity"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group half-w half-media">
+                            <label for="companyBox">P.O. Box:</label>
+                            <div class="input">
+                                <input #companyBox formControlName="companyBox" name="companyBox" type="text" class="form-control" id="companyBox">
+                                <control-messages [control]="companyRegister.controls.companyBox"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group half-w half-media">
+                            <label class="new-we" for="companyZipCode">Zip Code:</label>
+                            <div class="input">
+                                <input #companyZipCode formControlName="companyZipCode" name="companyZipCode" type="text" class="form-control" id="companyZipCode">
+                                <control-messages [control]="companyRegister.controls.companyZipCode"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyWebsite">Website:</label>
+                            <div class="input">
+                                <input #companyWebsite formControlName="companyWebsite" name="companyWebsite" type="text" class="form-control" id="companyWebsite">
+                                <control-messages [control]="companyRegister.controls.companyWebsite"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyAbout">About the Company:</label>
+                            <div class="input">
+                                <textarea #companyAbout formControlName="companyAbout" name="companyAbout" class="form-control" rows="5" id="companyAbout"></textarea>
+                                <control-messages [control]="companyRegister.controls.companyAbout"></control-messages>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="box-upload" [class.dashed-error]="logoRequired">
+                        <div class="upload-img">
+                            <input style="display: none !important;" class="up-img" (change)="UploadCompanyLogo($event)" #companyLogoInput id="companyLogoInput"
+                                type="file" name="file" accept="image/*">
+                        </div>
+                        <div class="image-container-upload" id="logo_container"><img src="/assets/images/icons/cloud-upload.png"></div>
+                        <p>Company Logo</p>
+                    </div>
+                    <div class="txt-center">
+                        <button class="up-image" (click)="OpenCompanyIconUpload()">Upload</button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="txt-center login-btn">
+                        <button [class.submit-btn-loader]="isUpdatingP" (click)="companyUpdateProfile()" [disabled]="isUpdatingP || (!this.companyRegister.valid)"
+                            class="btn new-green center">Update <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white marg-bottom">
+                <h3><span class="icon-portfolio"></span>Company’s Administrator Information</h3>
+                <div class="col-md-8">
+                    <form class="new-form-b" [formGroup]="userRegister">
+                        <div class="form-group">
+                            <label for="userName">Name:</label>
+                            <div class="input">
+                                <input #userName formControlName="userName" name="userName" type="text" class="form-control" id="userName">
+                                <control-messages [control]="userRegister.controls.userName"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userPostion">Postion:</label>
+                            <div class="input">
+                                <input #userPostion formControlName="userPostion" name="userPostion" type="text" class="form-control" id="userPostion">
+                                <control-messages [control]="userRegister.controls.userPostion"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail">Email:</label>
+                            <div class="input">
+                                <input #userEmail formControlName="userEmail" name="userEmail" type="text" class="form-control" id="userEmail">
+                                <control-messages [control]="userRegister.controls.userEmail"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group half-w">
+                            <label for="userMobile">Mobile:</label>
+                            <div class="input">
+                                <input #userMobile formControlName="userMobile" name="userMobile" type="text" class="form-control" id="userMobile">
+                                <control-messages [control]="userRegister.controls.userMobile"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group half-w half-media">
+                            <label for="userPhone">Phone:</label>
+                            <div class="input">
+                                <input #userPhone formControlName="userPhone" name="userPhone" type="text" class="form-control" id="userPhone">
+                                <control-messages [control]="userRegister.controls.userPhone"></control-messages>
+
+                            </div>
+                        </div>
+                        <div class="form-group half-w half-media">
+                            <label class="new-we" for="userFax">Fax:</label>
+                            <div class="input">
+                                <input #userFax formControlName="userFax" name="userFax" type="text" class="form-control" id="userFax">
+                                <control-messages [control]="userRegister.controls.userFax"></control-messages>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="col-md-12">
+                    <div class="txt-center login-btn">
+                        <button [class.submit-btn-loader]="isUpdatingU" (click)="userUpdateProfile()" [disabled]="isUpdatingU || (!this.userRegister.valid)"
+                            class="btn new-green center">Update <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="bg-white bg-whiteo">
+                <h3><span class="icon-portfolio"></span>Company Account</h3>
+                <div class="col-md-8">
+                    <form class="new-form-b" [formGroup]="companyCoordinator">
+                        <div class="form-group">
+                            <label for="login">Username:</label>
+                            <div class="input">
+                                <input name="login" formControlName="login" #login id="login" type="text" class="form-control">
+                                <control-messages [control]="companyCoordinator.controls.login"></control-messages>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <div class="input">
+                                <input name="password" formControlName="password" id="password" #password type="password" class="form-control">
+                                <control-messages [control]="companyCoordinator.controls.password"></control-messages>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>-->
+        </div>
+        <!-- </form> -->
+    </div>
+</section>

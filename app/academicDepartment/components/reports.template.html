@@ -1,0 +1,219 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/academic-department">Academic Department</a></li>
+                            <li class="breadcrumb-item active">Reports</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_41 black-bg-n">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle btn-stu-rep str-ui" type="button" data-toggle="dropdown">
+                            Enrolled Students
+                            <span class="icon-angle-downcopy down-arrow"></span>
+                        </button>
+                    <ul class="dropdown-menu new-drop-rep">
+                        <li>
+                            <a (click)="changeStatistics('oppPosted')">Opporutinits Posted</a>
+                        </li>
+                        <li>
+                            <a (click)="changeStatistics('studentsEnrolled')">Students Enrolled</a>
+                        </li>
+                        <li>
+                            <a (click)="changeStatistics('companiesRegisterd')">Companies Registered</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-blach">
+                    <div class="last-loader" *ngIf="loadingStatistics"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                    <canvas id="myChart" width="950" height="350"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_4">
+    <div class="container">
+        <div class="row">
+            <div class="bg-white new-reports">
+                <h1>{{ oppCount }}<span>Total Opportunities All Time</span></h1>
+                <h1>{{ openTerms }}<span>Terms Still Open</span></h1>
+                <h1>{{ staffCount }}<span>Total Staff</span></h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content-single">
+                    <div class="new-txt-rep padd-style">
+                        <div class="col-md-2">
+                            <div class="new-tit-o">
+                                <h1>Reports</h1>
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle btn-stu-rep" type="button" data-toggle="dropdown">
+                                            <span class="icon-studycopy"></span>Students
+                                            <span class="icon-angle-downcopy arrow-down"></span>
+                                        </button>
+                                    <ul class="dropdown-menu new-drop-rep">
+                                        <li>
+                                            <a (click)="changeReport('opp')"><span class="icon-note-2"></span>Opporutinits</a>
+                                        </li>
+                                        <li>
+                                            <a (click)="changeReport('std')"><span class="icon-studycopy"></span>Students</a>
+                                        </li>
+                                        <li>
+                                            <a (click)="changeReport('com')"><span class="icon-portfolio"></span>Companies</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <form [formGroup]="filterForm">
+                            <div class="col-md-8">
+                                <div class="co-one-rep">
+                                    <select name="major" formControlName="major" id="major" #major>
+                                        <option value="0">Major</option>
+                                        <option *ngFor="let m of FilterData.academicDepartments" value="{{ m.id }}">{{ m.name }}</option>
+                                    </select>
+                                    <div class="new-fo-rep">
+                                        <input name="coop" formControlName="coop" id="coop" #coop type="checkbox" value="1" id="checkboxOneInput" name="" />
+                                        <label for="checkboxOneInput">Co-op</label>
+                                    </div>
+                                    <div class="new-fo-rep">
+                                        <input name="summer" formControlName="summer" id="summer" #summer type="checkbox" value="2" id="checkboxOneInput2" name=""
+                                        />
+                                        <label for="checkboxOneInput2">Summer Training</label>
+                                    </div>
+
+                                </div>
+                                <div class="co-one-rep">
+                                    <select name="term" formControlName="term" id="term" #term>
+                                        <option value="0">Term</option>
+                                        <option *ngFor="let term of FilterData.terms" value="{{ term.id }}">{{ term.name }}</option>
+                                    </select>
+                                    <div class="new-fo-rep">
+                                        <input name="international" formControlName="international" id="international" #term type="checkbox" value="1" id="checkboxOneInput3"
+                                            name="" />
+                                        <label for="checkboxOneInput3">International</label>
+                                    </div>
+                                </div>
+                                <div class="co-one-rep">
+                                    <select name="company" formControlName="company" id="company" #company>
+                                        <option value="0">Company</option>
+                                        <option *ngFor="let com of FilterData.companies" value="{{ com.id }}">{{ com.englishName }}</option>
+                                    </select>
+                                </div>
+                                <div class="co-one-rep">
+                                    <select name="city" formControlName="city" id="city" #city>
+                                        <option value="0">City</option>
+                                        <option *ngFor="let city of FilterData.cities" value="{{ city.id }}">{{ city.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button (click)="changeReport()" [disabled]="!this.filterForm.valid || isGenerating" class="tit-sing-stu-btn n-rep-g" [class.submit-btn-loader]="isGenerating">Generate Report <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="content-topic padd-style-to">
+                        <div class="table-reports">
+                            <div class="table-responsive">
+                                <table class="table" *ngIf="reportsType == 'student'">
+                                    <thead>
+                                        <tr>
+                                            <th>Student Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>ID#<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>GPA<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>Major<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>College<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let opj of ReportsTable">
+                                            <td>{{ opj.user_info?.firstName }} {{ opj.user_info?.lastName }}</td>
+                                            <td>{{ opj.studentID }}</td>
+                                            <td>{{ opj.GPA }}</td>
+                                            <td>{{ opj.majorBranch }}</td>
+                                            <td>{{ opj.major }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table" *ngIf="reportsType == 'opportunity'">
+                                    <thead>
+                                        <tr>
+                                            <th>Opportunity<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>Company<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>Number of Students<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>Major<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>City<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let opj of ReportsTable">
+                                            <td>{{ opj.englishTitle }}</td>
+                                            <td>{{ opj.company?.englishName }}</td>
+                                            <td>{{ opj.numberOfOpportunities }}</td>
+                                            <td>{{ opj.academic_department?.name }}</td>
+                                            <td>{{ opj.city }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table" *ngIf="reportsType == 'company'">
+                                    <thead>
+                                        <tr>
+                                            <th>Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>Address<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>Number of Opportunities<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>Website<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>Coordinator<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let opj of ReportsTable">
+                                            <td>{{ opj.englishName }}</td>
+                                            <td>{{ opj.country }} - {{ opj.city }}</td>
+                                            <td>{{ opj.oppCount }}</td>
+                                            <td>{{ opj.website }}</td>
+                                            <td>{{ opj.company_coordinator?.user_info?.firstName }} {{ opj.company_coordinator?.user_info?.lastName }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="last-loader" *ngIf="ReportsTable.length == 0"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                        </div>
+                        <div class="wedgi-rep">
+                            <h3><img src="/assets/images/icons/e-download.png">Export Options</h3>
+                            <button (click)="GenerateReports('excel')" [disabled]="gettingExcel" [class.submit-btn-loader]="gettingExcel">Excel ( .xls )<span class="icon-graph"></span> <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            <button (click)="GenerateReports('txt')" [disabled]="gettingTxt" [class.submit-btn-loader]="gettingTxt">Tabs ( .txt )<span class="icon-copy-file"></span> <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            <button (click)="GenerateReports('print')" [disabled]="gettingPrint" [class.submit-btn-loader]="gettingPrint">Print<span class="icon-print"></span> <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

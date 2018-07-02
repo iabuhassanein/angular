@@ -1,0 +1,271 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/company">Company</a></li>
+                            <li class="breadcrumb-item active">Add New Oppertunity</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="s_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-white marge-iu">
+                    <h3 style="margin-bottom: 40px;"><span class="icon-portfolio"></span>New Opportunity</h3>
+                    <div class="table-reports-co ner-nm">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Major</th>
+                                        <th>Number of Students</th>
+                                        <th>City</th>
+                                        <th>Duration</th>
+                                        <th>Transportation</th>
+                                        <th>Housing</th>
+                                        <th>Salary</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="new-scroll-co">
+
+                                    <tr *ngFor="let opp of oppData; let indx = index">
+                                        <th>{{ opp.academic_department?.name }}</th>
+                                        <th>{{ opp.numberOfOpportunities }}</th>
+                                        <th>{{ opp.city }}</th>
+                                        <th>{{ opp.training_program?.typeOfProgram }}</th>
+                                        <th>{{ opp.transportationExpenses | readableBoolean }}</th>
+                                        <th>{{ opp.housingExpenses | readableBoolean }}</th>
+                                        <th>{{ opp.salary }} SAR</th>
+                                        <th>
+                                            <a class="trash-c" [class.disabled]="isEditing" data-toggle="modal" href="#normalModal" (click)="editOpp(indx)">Add More Info  / </a>
+                                            <a href="#"  [class.disabled]="isDeleting" (click)="deleteOpp(indx)"><img src="/assets/images/icons/trash.png"></a>
+                                        </th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="load-more-cont">
+                            <button class="btn new-green" [class.submit-btn-loader]="loadingMore" [class.border-red]="noMore" (click)="loadMoreOpp()" [disabled]="loadingMore || noMore">Load More <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                        </div>
+                    </div>
+                    <form [formGroup]="newOpp">
+                        <div class="table-mae-mk">
+                            <div>
+                                <div class="inputControl">
+                                    <select #major formControlName="major" name="major" id="major" class="formControl select-oi">
+                                    <option value="0">Major</option>
+                                    <option *ngFor="let acdep of academicDepartments" value="{{ acdep.id }}">{{ acdep.name }}</option>
+                                </select>
+                                    <control-messages [control]="newOpp.controls.major"></control-messages>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="inputControl">
+                                    <input #numberofstd formControlName="numberofstd" name="numberofstd" id="numberofstd" class="formControl inp-yu-r" type="text"
+                                        placeholder="Num">
+                                    <control-messages [control]="newOpp.controls.numberofstd"></control-messages>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="inputControl">
+                                    <select #city formControlName="city" name="city" id="city" class="formControl select-oi">
+                                        <option value="0">City</option>
+                                        <option  *ngFor="let city of cities" value="{{ city.id }}">{{ city.name }}</option>
+                                    
+                                </select>
+                                    <control-messages [control]="newOpp.controls.city"></control-messages>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="inputControl">
+                                    <select #duration formControlName="duration" name="duration" id="duration" class="formControl select-oi">
+                                    <option value="0">Program</option>
+                                    <option *ngFor="let traprog of trainingProgram" value="{{ traprog.id }}">{{ traprog.typeOfProgram }}</option>
+                                </select>
+                                    <control-messages [control]="newOpp.controls.duration"></control-messages>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="inputControl">
+                                    <select #transportation formControlName="transportation" name="transportation" id="transportation" class="formControl select-oi">
+                                    <option value="0">Transportation</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                                    <control-messages [control]="newOpp.controls.transportation"></control-messages>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="inputControl">
+                                    <select #housing formControlName="housing" name="housing" id="housing" class="formControl select-oi">
+                                    <option value="0">Housing</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                                    <control-messages [control]="newOpp.controls.housing"></control-messages>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="inputControl">
+                                    <input #salary formControlName="salary" name="salary" id="salary" class="formControl inp-yu-r" type="text" placeholder="0 SAR">
+                                    <control-messages [control]="newOpp.controls.salary"></control-messages>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="add-btn-m" [class.submit-btn-loader]="isAdding" (click)="addNewOpp()" [disabled]="isAdding || (!this.newOpp.valid)">Add <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="bg-white marg-bottom">
+
+                    <form class="new-form-b new-padd" [formGroup]="confirm">
+                        <div class="new-chec">
+                            <div class="input visible">
+                                <input name="term" formControlName="term" id="term" #term type="checkbox" />
+                                <label for="term">I understand, accept, and agree to the following terms and conditions.</label>
+                                <control-messages [control]="confirm.controls.term"></control-messages>
+                            </div>
+                        </div>
+                        <div class="txt-center">
+                            <button type="submit" class="btn new-green" [class.submit-btn-loader]="isConfirm" (click)="callConfirmFun()" [disabled]="isConfirm || (!this.confirm.valid)">Submit <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="normalModal" class="modal fade">
+    <div class="modal-dialog">
+        <form [formGroup]="editOppform">
+            <div class="model-new">
+                <div class="head-model-u">
+                    <span>Job Title</span>
+                    <div class="inputControl">
+                        <input #englishTitle formControlName="englishTitle" name="englishTitle" id="englishTitle" type="text" placeholder="E.g. Chemical engineer, Petroleum Engineer">
+                        <control-messages [control]="editOppform.controls.englishTitle"></control-messages>
+                    </div>
+                    <div class="upload-file-r">
+                        <label for="file-upload" class="custom-file-upload">
+                    <img src="/assets/images/icons/upload.png"> Attach Files
+                </label>
+                        <input id="file-upload" type="file" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx" (change)="UploadOpperFile($event)">
+                    </div>
+                    <span class="new-file-o" *ngFor="let cfile of cfiles">{{ cfile.original_name }}</span>
+                    <p>Attach any extra documents needed for the training plan and job description.</p>
+                </div>
+                <div class="table-mae-mk">
+                    <div>
+                        <div class="inputControl">
+                            <select #major formControlName="major" name="major" id="major" class="formControl select-oi">
+                                    <option *ngFor="let acdep of academicDepartments" value="{{ acdep.id }}" [selected]="acdep.id == editOppertunity?.academic_department?.id">{{ acdep.name }}</option>
+                                </select>
+                            <control-messages [control]="editOppform.controls.major"></control-messages>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inputControl">
+                            <input #numberofstd formControlName="numberofstd" name="numberofstd" id="numberofstd" class="formControl inp-yu-r" type="text"
+                                placeholder="Num">
+                            <control-messages [control]="editOppform.controls.numberofstd"></control-messages>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inputControl">
+                            <select #city formControlName="city" name="city" id="city" class="formControl select-oi">
+                                    <option  *ngFor="let city of cities" value="{{ city.id }}" [selected]="city.id == editOppertunity?.city">{{ city.name }}</option>
+                                    
+                                </select>
+                            <control-messages [control]="editOppform.controls.city"></control-messages>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inputControl">
+                            <select #duration formControlName="duration" name="duration" id="duration" class="formControl select-oi">
+                                    <option *ngFor="let traprog of trainingProgram" value="{{ traprog.id }}" [selected]="traprog.id == editOppertunity?.training_program?.id">{{ traprog.typeOfProgram }}</option>
+                                </select>
+                            <control-messages [control]="editOppform.controls.duration"></control-messages>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inputControl">
+                            <select #transportation formControlName="transportation" name="transportation" id="transportation" class="formControl select-oi">
+                                    <option value="0" [selected]="editOppertunity?.transportationExpenses == 0">No</option>
+                                    <option value="1" [selected]="editOppertunity?.transportationExpenses == 1">Yes</option>
+                                </select>
+                            <control-messages [control]="editOppform.controls.transportation"></control-messages>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inputControl">
+                            <select #housing formControlName="housing" name="housing" id="housing" class="formControl select-oi">
+                                    <option value="0" [selected]="editOppertunity?.housingExpenses == 0">No</option>
+                                    <option value="1" [selected]="editOppertunity?.housingExpenses == 1">Yes</option>
+                                </select>
+                            <control-messages [control]="editOppform.controls.housing"></control-messages>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="inputControl">
+                            <input #salary formControlName="salary" name="salary" id="salary" class="formControl inp-yu-r" type="text" placeholder="0 SAR">
+                            <control-messages [control]="editOppform.controls.salary"></control-messages>
+                        </div>
+                    </div>
+                </div>
+                <div class="new-txt-ay">
+                    <span>Opportuinty Job Description</span>
+                    <textarea #englishDescription formControlName="englishDescription" name="englishDescription"></textarea>
+                </div>
+                <div class="new-txt-ay">
+                    <span>Training Plan</span>
+                    <textarea #trainingPlan formControlName="trainingPlan" name="trainingPlan"></textarea>
+                </div>
+                <div class="foot-model">
+                    <div class="add-student-id">
+                        <h3 class="new-tilit-mod"><img src="/assets/images/icons/add-user.svg"> Automated students selection</h3>
+                        <div class="half-do">
+                            <input type="text" placeholder="Student University ID">
+                            <a href="#">+ add</a>
+                        </div>
+                        <div class="half-do">
+                            <p>Fill this only if the opportunity is personally<br>obtained by the student.</p>
+                        </div>
+                    </div>
+                    <div class="two-wedgit">
+                        <h3><img src="/assets/images/icons/add-user.svg"> Automated students selection</h3>
+                        <p>the training department will nominate the students.</p>
+                    </div>
+                </div>
+                <div class="btns-models">
+                    <button class="add-btn-m" [class.submit-btn-loader]="isEditing" (click)="saveEditOpp()" [disabled]="isEditing || (!this.editOppform.valid)">Save <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                    <button>Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

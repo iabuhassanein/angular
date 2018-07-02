@@ -1,0 +1,153 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/academic-department">Academic Department</a></li>
+                            <li class="breadcrumb-item active">Opportunity</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="content-single">
+                    <div class="tit-sing-stu">
+                        <div class="pull-left">
+                            <div class="txt-ti-stu new-opp">
+                                <h3>{{ opportunity?.englishTitle }}</h3>
+                                <a>{{ opportunity?.company?.englishName}}</a>
+                                <a>{{ opportunity?.city }}</a>
+                                <a><span class="icon-plane"></span></a>
+                                <a>Available</a>
+                            </div>
+                        </div>
+                        <div class="pull-right btn-yi">
+                            <a class="btn-qa" (click)="RequestMoreInfo()">Request More Information</a>
+                            <a class="btn-bn" (click)="ApproveOpp()">{{ (opportunity?.ADApproved)?'Approved':'Approve' }}</a>
+                        </div>
+                        <!--<button class="pull-right btn-apl new-kl">Request Edit</button>-->
+                    </div>
+                    <div class="content-topic">
+                        <div class="new-txt-t m-opp-l">
+                            <h3>Opportuinty Job Description</h3>
+                            <p>{{ opportunity?.englishDescription }}</p>
+                            <h3>Training Plan</h3>
+                            <p>{{ opportunity?.trainingPlan }}</p>
+                            <ul class="list-pdf">
+
+                                <li *ngFor="let file of opportunity.files">
+                                    <a target="_blank" href="{{ _base_url_img }}file/{{ file.filename }}" download="">
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>{{ file.original_name | str_limit:25 }}</h4>
+                                        <p>{{ file.created_at | date:mediumDate }}</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <ul class="list-date">
+                            <li *ngIf="opportunity?.training_program?.startDate != null">{{ opportunity?.training_program?.startDate | date:longDate }}</li>
+                            <li>by <span>{{ opportunity?.company?.englishName }}</span> </li>
+                            <li>| in <span>{{ opportunity?.academic_department?.name }}</span></li>
+                        </ul>
+                        <div class="about-stu new-txt-to ma-bot">
+                            <h3>About Company</h3>
+                            <div class="media all-elem">
+                                <a class="media-left img-ui-k" href="#">
+                                    <img class="media-object" src="{{ _base_url_img }}image/110x110/{{ opportunity?.company?.logo }}" alt="#">
+                                </a>
+                                <div class="media-body img-ui-m">
+                                    <h4 class="media-heading">{{ opportunity?.company?.englishName}}</h4>
+                                    <span>{{ opportunity?.company?.city }} - {{ opportunity?.company?.country }}</span>
+                                    <p>{{ opportunity?.company?.englishAbout }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-single-pl comments">
+                    <div class="tit-shared-co">
+                        <h3 class="pull-left"><img src="/assets/images/icons/chat.png">Shared Notes</h3>
+                        <h4 class="pull-right" *ngIf="comments[0]">Last Update On: {{ comments[0]?.updated_at | date:longDate }}</h4>
+                    </div>
+                    <div class="comments-b">
+
+                        <div class="comment-sig" *ngFor="let comment of comments">
+                            <h2 class="first-ad-opp">{{ comment.user_info?.firstName }} {{ comment.user_info?.lastName }} -<span>{{ comment.employee }}</span></h2>
+                            <span>{{ comment.updated_at | date:longDate }}</span>
+                            <p>{{ comment.comment }}</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="leave-comment leave-comment-to">
+                    <h2><img src="/assets/images/icons/e-icon.png">Leave a comment</h2>
+                    <form [formGroup]="addCommentForm">
+                        <div class="inputControl">
+                            <textarea class="form-control" name="commentBody" formControlName="commentBody" id="commentBody" #commentBody placeholder="Write your comment here..."></textarea>
+                            <control-messages [control]="addCommentForm.controls.commentBody"></control-messages>
+                        </div>
+                        <button (click)="addNewComment()" [disabled]="!this.addCommentForm.valid || isCommenting" [class.submit-btn-loader]="isCommenting">Submit <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white">
+                    <div class="fi-wed-t seca-wed">
+                        <h3><img class="new-icon-lo" src="/assets/images/icons/menu-icon.png">Overview</h3>
+                        <ul>
+                            <li>
+                                <h4>Duration</h4>
+                                <p>8 Weeks</p>
+                            </li>
+                            <li>
+                                <h4>Salary</h4>
+                                <p>{{ opportunity?.salary }} SAR</p>
+                            </li>
+                            <li>
+                                <h4>Housing</h4>
+                                <p *ngIf="opportunity.housingExpenses == 1">Yes</p>
+                                <p *ngIf="opportunity.housingExpenses != 1">No</p>
+                            </li>
+                            <li>
+                                <h4>Transportation</h4>
+                                <p *ngIf="opportunity.transportationExpenses == 1">Yes</p>
+                                <p *ngIf="opportunity.transportationExpenses != 1">No</p>
+                            </li>
+                            <li>
+                                <h4>Number of Students</h4>
+                                <p>{{ opportunity?.numberOfOpportunities }}</p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="fi-wed-t three-wed">
+                        <h3><span class="icon-map-marker"></span>Location</h3>
+                        <h2>Dhahran - Eastern Province</h2>
+                        <img src="http://static-maps.yandex.ru/1.x/?lang=en-US&amp;ll=-73.7638,42.6564&amp;z=13&amp;l=map&amp;size=270,180" alt="Map"
+                            width="270">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

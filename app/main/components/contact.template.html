@@ -1,0 +1,65 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="isLoggindInb"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item active">Contact Us</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <form [formGroup]="contactForm">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="contact">
+                        <h2>Contact Us</h2>
+                        <div class="inputs">
+                            <div class="input">
+                                <input name="name" formControlName="name" #name id="name" type="text" class="form-control" placeholder="Name">
+                                <control-messages [control]="contactForm.controls.name"></control-messages>
+                            </div>
+                        </div>
+                        <div class="inputs">
+                            <div class="input">
+                                <input name="email" formControlName="email" #email id="email" type="text" class="form-control" placeholder="Email">
+                                <control-messages [control]="contactForm.controls.email"></control-messages>
+                            </div>
+                        </div>
+                        <div class="inputs">
+                            <div class="input">
+                                <input name="title" formControlName="title" #title id="title" type="text" class="form-control" placeholder="Title">
+                                <control-messages [control]="contactForm.controls.title"></control-messages>
+                            </div>
+                        </div>
+                        <div class="inputs">
+                            <div class="input">
+                                <textarea name="content" formControlName="content" #content id="content" rows="6" placeholder="Subject"></textarea>
+                                <control-messages [control]="contactForm.controls.content"></control-messages>
+                            </div>
+                        </div>
+                        <div class="butn_cont">
+                            <button [class.submit-btn-loader]="isSending" (click)="sendMessage()">Send <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

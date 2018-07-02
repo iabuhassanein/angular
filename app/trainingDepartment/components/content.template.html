@@ -1,0 +1,220 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/training-department">Training Department</a></li>
+                            <li class="breadcrumb-item active">Content Managment System</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="bg-white">
+                    <div class="fi-wed-t seca-wed bg-bla">
+                        <ul>
+                            <li class="active">
+                                <a href="#1a" data-toggle="tab">
+                                    <h3><img src="/assets/images/icons/speaker.png">Announcements</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#2a" data-toggle="tab">
+                                    <h3><span class="icon-news-paper"></span>Content</h3>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="content-single-pl content-single-pln">
+                    <div class="popup-ty" [class.show-modal-editor]="creatingContent">
+                        <div class="head-popup">
+                            <input name="title" id="createTitle" type="text" placeholder="Title Here..">
+                            <div class="tags-head-pop">
+                                <a *ngFor="let tag of contentNew?.tags" class="create-tag">{{ tag }}</a>
+                            </div>
+                            <select id="createType">
+                                <option value="0">Type</option>
+                                <option value="news">News</option>
+                                <option value="announcements">Announcements</option>
+                            </select>
+                        </div>
+                        <div id="editor" class="list-op-m">
+
+                        </div>
+                        <div class="btn-pop-i">
+                            <button class="submit-popup" (click)="createContentSubmit()" [class.submit-btn-loader]="isCreating">Create <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            <a (click)="cancelCreate()" class="cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                    <div class="popup-ty" [class.show-modal-editor]="editingContent">
+                        <div class="head-popup">
+                            <input name="title" id="editTitle" type="text" placeholder="Title Here.." value="{{ contentEdit?.title }}">
+                            <div class="tags-head-pop">
+                                <a *ngFor="let tag of contentEdit?.tags" class="edit-tag">{{ tag }}</a>
+                            </div>
+                            <select id="editType">
+                                <option value="0">Type</option>
+                                <option value="news" [selected]="contentEdit?.type == 'news'">News</option>
+                                <option value="announcements" [selected]="contentEdit?.type == 'announcements'">Announcements</option>
+                            </select>
+                        </div>
+                        <div id="editor1" class="list-op-m">
+                            {{ contentEdit?.desc }}
+                        </div>
+                        <div class="btn-pop-i">
+                            <button class="submit-popup" (click)="updateContentSubmit()" [class.submit-btn-loader]="isUpdating">Update <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            <a class="cancel-btn" (click)="cancelUpdate()">Cancel</a>
+                        </div>
+                    </div>
+                    <div class="form-to-tabp">
+                        <div class="form-to-tab-mk">
+                            <div class="form-group half-wnk">
+                                <h3 class="tit-seach"><img src="/assets/images/icons/e-search.png">Search</h3>
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <select class="form-control new-arrow sel-styk" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tit-sing-stu">
+                        <div class="pull-left">
+                            <div class="txt-ti-stu new-opp">
+                                <h3>Content & Announcements</h3>
+                                <p><span class="icon-news-paper"></span>Content</p>
+                            </div>
+                        </div>
+                        <div class="pull-right btn-yi">
+                            <a class="btn-bn" (click)="CreateNewContent()">New</a>
+                        </div>
+                    </div>
+
+                    <div class="tab-content clearfix">
+                        <div class="tab-pane active" id="1a">
+                            <div class="new-rt-d">
+                                <h4>Academic Calendar</h4>
+                            </div>
+                            <div class="content-topic">
+                                <div class="new-txt-t m-opp-l new-txt-tf" *ngFor="let obj of comsDataCal; let $i = index">
+                                    <div class="pull-left wdith-rf">
+                                        <ul class="list-datea">
+                                            <li>{{ obj.created_at | date:longDate }}</li>
+                                        </ul>
+                                        <h2>{{ obj.title }}</h2>
+                                        <p>{{ obj.desc }}</p>
+                                    </div>
+                                    <div class="pull-right btn-yil">
+                                        <a class="btn-bn btn-togg-pop" (click)="updateContent($i, 'calAnnouncements')">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="new-rt-d">
+                                    <h4><img src="/assets/images/icons/menu-icon.png">All Content</h4>
+                                </div>
+                                <div class="last-loader" *ngIf="(comsData.length == 0) && !noMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                                <div class="new-txt-t m-opp-l new-txt-tf" *ngFor="let obj of comsData; let $i = index">
+                                    <div class="pull-left wdith-rf">
+                                        <ul class="list-datea">
+                                            <li>{{ obj.created_at | date:longDate }}</li>
+                                        </ul>
+                                        <h2>{{ obj.title }}</h2>
+                                        <p>{{ obj.desc }}</p>
+                                    </div>
+                                    <div class="pull-right btn-yil">
+                                        <a class="btn-bn btn-togg-pop" (click)="updateContent($i, 'announcements')">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="pagination new-paginati" *ngIf="coms_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                                            <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                        </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of coms_pages; let $i = index;"><a class="page-link" [class.active]="currentPage == $i+1" (click)="goToPage($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                                            <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                        </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="2a">
+                            <div class="new-rt-d">
+                                <h4>Academic Calendar</h4>
+                            </div>
+                            <div class="content-topic">
+                                <div class="new-txt-t m-opp-l new-txt-tf" *ngFor="let obj of comsDataACal; let $i = index">
+                                    <div class="pull-left wdith-rf">
+                                        <ul class="list-datea">
+                                            <li>{{ obj.created_at | date:longDate }}</li>
+                                        </ul>
+                                        <h2>{{ obj.title }}</h2>
+                                        <p>{{ obj.desc }}</p>
+                                    </div>
+                                    <div class="pull-right btn-yil">
+                                        <a class="btn-bn btn-togg-pop" (click)="updateContent($i, 'calNews')">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="new-rt-d">
+                                    <h4><img src="/assets/images/icons/menu-icon.png">All Content</h4>
+                                </div>
+                                <div class="last-loader" *ngIf="(comsDataA.length == 0) && !noMoreA"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                                <div class="new-txt-t m-opp-l new-txt-tf" *ngFor="let obj of comsDataA; let $i = index">
+                                    <div class="pull-left wdith-rf">
+                                        <ul class="list-datea">
+                                            <li>{{ obj.created_at | date:longDate }}</li>
+                                        </ul>
+                                        <h2>{{ obj.title }}</h2>
+                                        <p>{{ obj.desc }}</p>
+                                    </div>
+                                    <div class="pull-right btn-yil">
+                                        <a class="btn-bn btn-togg-pop" (click)="updateContent($i, 'news')">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="pagination new-paginati" *ngIf="coms_pagesA.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageA(currentPageA - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of coms_pagesA; let $i = index;"><a class="page-link" [class.active]="currentPageA == $i+1" (click)="goToPageA($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageA(currentPageA + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

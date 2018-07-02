@@ -1,0 +1,28 @@
+<section class="header-section-sin header-blur event_sec" style="background-image: url(/assets/images/post.jpg);">
+    <div class="container">
+        <ng-header [isLoggingIn]="isLoggindInb"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="post-sin-pa">
+                    <div class="content-i-post event_single">
+                        <span><i class="fa fa-calendar" aria-hidden="true"></i> {{ post?.dateTime | date:fullDate }}</span>
+                        <h1>{{ post?.title }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_55">
+    <div class="container">
+        <div class="row">
+            <div class="single-page">
+                <div class="new-box-top">
+                    <p>{{ post?.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

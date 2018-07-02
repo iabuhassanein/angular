@@ -1,0 +1,75 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="isLoggindInb"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item active">Events</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-white events">
+                    <div class="newn-padd">
+                        <div class="new-chec pull-left">
+                            <h4>Events</h4>
+                        </div>
+                    </div>
+                    <div class="list-regsy">
+
+                        <!-- <div class="last-loader" *ngIf="(oppData.length == 0) && !noMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div> -->
+                        
+                        <div class="col-md-12" *ngIf="(oppData.length == 0) && !noMore">
+                            <img class="loader-class" src="/assets/images/logoloader-txt.gif">
+                            <img class="loader-class" src="/assets/images/logoloader-txt.gif">
+                            <img class="loader-class" src="/assets/images/logoloader-txt.gif">
+                            <img class="loader-class" src="/assets/images/logoloader-txt.gif">
+                            <img class="loader-class" src="/assets/images/logoloader-txt.gif">
+                        </div>
+                        <div class="one-register" *ngFor="let obj of oppData">
+                            <div class="new-regy pull-left">
+                                <h4>{{ obj.title }}</h4>
+                                <span><i class="fa fa-calendar" aria-hidden="true"></i> {{ obj.dateTime }}</span>
+                            </div>
+                            <div class="new-regy-m pull-right">
+                                <a routerLink="/event/{{obj.id}}" class="btn-closr">Read More</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <ul class="pagination new-paginati" *ngIf="opp_pages.length > 1">
+                        <li class="page-item">
+                            <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                        </li>
+                        <li class="page-item" *ngFor="let page of opp_pages; let $i = index;"><a class="page-link" (click)="goToPage($i+1)">{{ $i+1 }}</a></li>
+                        <li class="page-item">
+                            <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

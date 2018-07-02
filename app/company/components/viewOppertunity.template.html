@@ -1,0 +1,199 @@
+
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/company">Company</a></li>
+                            <li class="breadcrumb-item active">Oppertunity</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="content-single">
+                        <div class="tit-sing-stu">
+                            <div class="pull-left">
+                                <div class="txt-ti-stu new-opp">
+                                    <h3>{{ oppertunity?.englishTitle }}</h3>
+                                    <a href="#">{{ oppertunity?.companyCoordinator?.company?.englishName}}</a>
+                                    <a href="#">{{ oppertunity?.city }}</a>
+                                </div>
+                            </div>
+                            <!--<button class="pull-right btn-apl new-kl">Request Edit</button>-->
+                        </div>
+                        <div class="content-topic">
+                            <div class="new-txt-t m-opp-l">
+                                <h3>Opportuinty Job Description</h3>
+                                <p>{{ oppertunity?.englishDescription }}</p>
+                                <h3>Training Plan</h3>
+                                <p>{{ oppertunity?.trainingPlan }}</p>
+                            </div>
+                            <ul class="list-date">
+                                <li *ngIf="oppertunity?.training_program?.startDate != null">{{ oppertunity?.trainingProgram?.startDate | date:longDate }}</li>
+                                <li>by <span>{{ oppertunity?.companyCoordinator?.company?.englishName }}</span> </li>
+                                <li>| in <span>{{ oppertunity?.academicDepartment?.englishName }}</span></li>
+                            </ul>
+                            <div class="about-stu new-txt-to ma-bot">
+                                <h3>About Company</h3>
+                                <div class="media all-elem">
+                                    <a class="media-left img-ui-k" href="#">
+                                        <img class="media-object" src="{{ _base_url_img }}{{ oppertunity?.companyCoordinator?.company?.logo }}" alt="#">
+                                    </a>
+                                    <div class="media-body img-ui-m">
+                                        <h4 class="media-heading">{{ oppertunity?.companyCoordinator?.company?.englishName}}</h4>
+                                        <span>{{ oppertunity?.companyCoordinator?.company?.city }} - {{ oppertunity?.companyCoordinator?.company?.country }}</span>
+                                        <p>{{ oppertunity?.companyCoordinator?.company?.englishAbout }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-single sec2">
+                            <div class="about-stu new-txt-to y_item">
+                                <h3><img src="/assets/images/icons/clock.png">Opprotunity Status</h3>
+                                <div class="rates">
+                                    <div class="aprov-first active">
+                                        <p>start</p>
+                                    </div>
+                                    <div class="start2" *ngIf="oppertunity?.approvedByAcademicDepartment">
+                                        <h2>Academic Department Approved</h2>
+                                        <div class="item_poing">
+                                            <span></span>
+                                        </div>
+                                        <p>{{ oppertunity?.approvedByAcademicDepartment }}</p>
+                                    </div>
+                                    <div class="start3" *ngIf="oppertunity?.approvedByTrainingDepartment">
+                                        <p>{{ oppertunity?.approvedByTrainingDepartment }}</p>
+                                        <div class="item_poing">
+                                            <span></span>
+                                        </div>
+                                        <h2>Training Department Approved</h2>
+                                    </div>
+                                    <div class="aprov-last" [class.active]="oppertunity?.approvedByAcademicDepartment && oppertunity?.approvedByTrainingDepartment">
+                                        <p>{{ (oppertunity?.approvedByAcademicDepartment && oppertunity?.approvedByTrainingDepartment)?'Published':'Waiting Approved' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="bg-white">
+                        <div class="fi-wed-t seca-wed">
+                            <h3><img class="new-icon-lo" src="/assets/images/icons/menu-icon.png">Overview</h3>
+                            <ul>
+                                <li>
+                                    <h4>Duration</h4>
+                                    <p>8 Weeks</p>
+                                </li>
+                                <li>
+                                    <h4>Salary</h4>
+                                    <p>{{ oppertunity?.salary }} SAR</p>
+                                </li>
+                                <li>
+                                    <h4>Housing</h4>
+                                    <p *ngIf="oppertunity?.housingExpenses">Yes</p>
+                                    <p *ngIf="!oppertunity?.housingExpenses">No</p>
+                                </li>
+                                <li>
+                                    <h4>Transportation</h4>
+                                    <p *ngIf="oppertunity?.transportationExpenses">Yes</p>
+                                    <p *ngIf="!oppertunity?.transportationExpenses">No</p>
+                                </li>
+                                <li>
+                                    <h4>Number of Students</h4>
+                                    <p>{{ oppertunity?.numberOfOpportunities }}</p>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="fi-wed-t three-wed">
+                            <h3><span class="icon-map-marker"></span>Location</h3>
+                            <h2>Dhahran - Eastern Province</h2>
+                            <img src="http://static-maps.yandex.ru/1.x/?lang=en-US&amp;ll=-73.7638,42.6564&amp;z=13&amp;l=map&amp;size=270,180" alt="Map" width="270">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="s_6">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content-topic content-topicb">
+                        
+                        <div class="table-reports table-reports-po">
+                            <div class="slect_y_items">
+                                <select class="selectpicker" (change)="changeFilter($event)">
+                                  <option value="1" [selected]="filterType == 1"><img src="/assets/images/icons/user.png"> Applied Students</option>
+                                  <option value="2" [selected]="filterType == 9"><img src="/assets/images/icons/check.png"> Accepted Students</option>
+                                </select>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Student Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>Phone<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>GPA<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                            <th>Major<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                            <th>College<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr *ngFor="let std of stdData">
+                                            <td style="width: 270px;">
+                                                <div class="item_check">
+                                                    <input type="checkbox" value="{{ std.id }}" id="check{{ std.id }}" name="selectSTD" (change)="updateCheckedStudents()">
+                                                    <label for="check{{ std.id }}">{{ std.firstName }} {{ std.lastName }}</label>
+                                                </div>
+                                                <a href="#" target="_blank" class="down_cv"><span>download</span>cv</a>
+                                            </td>
+                                            <td>{{ std.phone }}</td>
+                                            <td>{{ std.GPA }}</td>
+                                            <td>{{ std.majorBranch }}</td>
+                                            <td>{{ std.major }}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="item_table_info">
+                                <h2><img src="/assets/images/icons/attention3.png">Once the offer sent, it can’t be canceled.</h2>
+                                <button class="btn new-green" [disabled]="isSendingOffer" [class.submit-btn-loader]="isSendingOffer" (click)="sendOffer()">Send Offer <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                            </div>
+                        </div>
+                        <div class="wedgi-rep wedgi-repd">
+                            <h3><img src="/assets/images/icons/e-download.png">Export Options</h3>
+                            <button>Excel ( .xls )<span class="icon-graph"></span></button>
+                            <button>Tabs ( .txt )<span class="icon-copy-file"></span></button>
+                            <button>Print<span class="icon-print"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 

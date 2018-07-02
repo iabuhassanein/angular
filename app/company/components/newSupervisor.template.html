@@ -1,0 +1,158 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/company">Company</a></li>
+                            <li class="breadcrumb-item active">Create Supervisor</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_4">
+    <div class="container">
+        <div class="row">
+            <div class="bg-white bg-whiteo">
+                <h3><span class="icon-portfolio"></span>Company Information</h3>
+                <div class="tit-byn-fd">
+                    <div class="pull-left">
+                        <h2>Accounts Management</h2>
+                    </div>
+                    <div class="pull-right">
+                        <!--<a href="#">Edit</a>-->
+                    </div>
+                </div>
+                <div class="wdith-col">
+                    <div class="table-reports table-reportsn tablk-n new-width-j">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="new-scrolb-he">
+                                    <tr>
+                                        <th>Employee Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                        <th>Postion<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                        <th>Email<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                        <th>Mobile<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                        <th>Phone<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                        <th>Role<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="new-scrolb">
+                                    <tr *ngFor="let val of supervisors">
+                                        <td>{{ val.user_info?.firstName }} {{ val.user_info?.lastName }}</td>
+                                        <td>{{ val.position }}</td>
+                                        <td>{{ val.user_info?.email }}</td>
+                                        <td>{{ val.mobile }}</td>
+                                        <td>{{ val.user_info?.phone }}</td>
+                                        <td>{{ val.user_info?.user_type?.title }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="load-more-cont">
+                            <button class="btn new-green" [class.submit-btn-loader]="loadingMore" [class.border-red]="noMore" (click)="loadMore()" [disabled]="loadingMore || noMore">Load More <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white marg-bottom">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="new-form-b new-padk">
+                            <div class="new-cheb">
+                                <h4><span class="icon-portfolio"></span>Supervisor Information</h4>
+                            </div>
+                            <div class="txt-center">
+                                <button id="new-clil" class="btn new-green n-clickj" [class.submit-btn-loader]="isAdding" (click)="createSrvBtn()">{{ createBtnStr }} <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                                <button id="new-clilc" class="btn new-green n-cli-cancel" (click)="cancelCreateBtn()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hide-mk">
+                    <form [formGroup]="createSV" class="new-form-b">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="supName">Name:</label>
+                                <div class="inputControl">
+                                    <input #supName formControlName="supName" name="supName" type="text" class="form-control" id="supName">
+                                    <control-messages [control]="createSV.controls.supName"></control-messages>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="supPostion">Postion:</label>
+                                <div class="inputControl">
+                                    <input #supPostion formControlName="supPostion" name="supPostion" type="text" class="form-control" id="supPostion">
+                                    <control-messages [control]="createSV.controls.supPostion"></control-messages>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="supEmail">Email:</label>
+                                <div class="inputControl">
+                                    <input #supEmail formControlName="supEmail" name="supEmail" type="text" class="form-control" id="supEmail">
+                                    <control-messages [control]="createSV.controls.supEmail"></control-messages>
+                                </div>
+                            </div>
+                            <div class="form-group half-w half-media">
+                                <label for="supPhone">Phone:</label>
+                                <div class="inputControl">
+                                    <input #supPhone formControlName="supPhone" name="supPhone" type="text" class="form-control" id="supPhone">
+                                    <control-messages [control]="createSV.controls.supPhone"></control-messages>
+                                </div>
+                            </div>
+                            <div class="form-group half-w half-media">
+                                <label class="new-we" for="supMobile">Mobile:</label>
+                                <div class="inputControl">
+                                    <input #supMobile formControlName="supMobile" name="supMobile" type="text" class="form-control" id="supMobile">
+                                    <control-messages [control]="createSV.controls.supMobile"></control-messages>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="new-form-b new-padk">
+                                    <div class="new-cheb">
+                                        <h4><span class="icon-portfolio"></span>Supervisor Account</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide-mk">
+                            <div class="col-md-8 new-superquth">
+                                <div class="form-group">
+                                    <label for="supLogin">Username:</label>
+                                    <div class="inputControl">
+                                        <input #supLogin formControlName="supLogin" name="supLogin" type="text" class="form-control" id="supLogin">
+                                        <control-messages [control]="createSV.controls.supLogin"></control-messages>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="supPass">Password:</label>
+                                    <div class="inputControl">
+                                        <input #supPass formControlName="supPass" name="supPass" type="password" class="form-control" id="supPass">
+                                        <control-messages [control]="createSV.controls.supPass"></control-messages>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

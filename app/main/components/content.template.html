@@ -1,0 +1,31 @@
+
+<section class="header-section-sin header-blur" style="background-image: url(/assets/images/post.jpg);">
+    <div class="container">
+        <ng-header [isLoggingIn]="isLoggindInb"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="post-sin-pa">
+                    <div class="content-i-post">
+                        <span>{{ post?.dateAdded | date:fullDate }}</span>
+                        <h1>{{ post?.title }}</h1>
+                        <p>{{ post?.shortDescription }}</p>
+                        <a *ngFor="let obj of post?.tags">{{ obj }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_55">
+    <div class="container">
+        <div class="row">
+            <div class="single-page">
+                <div class="new-box-top">
+                    <p>{{ post?.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

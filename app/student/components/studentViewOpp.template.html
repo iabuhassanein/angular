@@ -1,0 +1,121 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/student">Student</a></li>
+                            <li class="breadcrumb-item active">Oppertunity</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="content-single">
+                    <div class="tit-sing-stu">
+                        <div class="pull-left">
+                            <div class="txt-ti-stu new-opp">
+                                <h3>{{ oppertunity?.englishTitle }}</h3>
+                                <a href="#">{{ oppertunity?.company?.englishName}}</a>
+                                <a href="#">{{ oppertunity?.city }}</a>
+                            </div>
+                        </div>
+                        <button class="pull-right btn-apl new-kl" [class.submit-btn-loader]="appling" (click)="applyOpp()" [disabled]="appling">{{ (is_applied)?'Cancel Applied':'Apply' }} <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                    </div>
+                    <div class="content-topic">
+                        <div class="new-txt-t m-opp-l">
+                            <h3>Opportuinty Job Description</h3>
+                            <p>{{ oppertunity?.englishDescription }}</p>
+                            <h3>Training Plan</h3>
+                            <p>{{ oppertunity?.trainingPlan }}</p>
+                            <ul class="list-pdf">
+
+                                <li *ngFor="let file of oppertunity.files">
+                                    <a target="_blank" href="{{ _base_url_img }}file/{{ file.filename }}" download="">
+                                        <img src="/assets/images/icons/filetypes-word.png">
+                                        <h4>{{ file.original_name | str_limit:25 }}</h4>
+                                        <p>{{ file.created_at | date:mediumDate }}</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <ul class="list-date">
+                            <li *ngIf="oppertunity?.training_program?.startDate != null">{{ oppertunity?.training_program?.startDate | date:longDate }} </li>
+                            <li>by <span>{{ oppertunity?.company?.englishName }}</span> </li>
+                            <li>| in <span>{{ oppertunity?.academic_department?.name }}</span></li>
+                        </ul>
+                        <div class="about-stu new-txt-to ma-bot">
+                            <h3>About Company</h3>
+                            <div class="media all-elem">
+                                <a class="media-left img-ui-k" href="#">
+                                    <img class="media-object" src="{{ _base_url_img }}image/110x110/{{ oppertunity?.company?.logo }}" alt="#">
+                                </a>
+                                <div class="media-body img-ui-m">
+                                    <h4 class="media-heading">{{ oppertunity?.company?.englishName}}</h4>
+                                    <span>{{ oppertunity?.company?.city }} - {{ oppertunity?.company?.country }}</span>
+                                    <p>{{ oppertunity?.company?.englishAbout }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-white">
+                    <div class="fi-wed-t seca-wed">
+                        <h3><img class="new-icon-lo" src="/assets/images/icons/menu-icon.png">Overview</h3>
+                        <ul>
+                            <li>
+                                <h4>Duration</h4>
+                                <p>8 Weeks</p>
+                            </li>
+                            <li>
+                                <h4>Salary</h4>
+                                <p>{{ oppertunity?.salary }} SAR</p>
+                            </li>
+                            <li>
+                                <h4>Housing</h4>
+                                <p *ngIf="oppertunity.housingExpenses == 1">Yes</p>
+                                <p *ngIf="oppertunity.housingExpenses != 1">No</p>
+                            </li>
+                            <li>
+                                <h4>Transportation</h4>
+                                <p *ngIf="oppertunity.transportationExpenses == 1">Yes</p>
+                                <p *ngIf="oppertunity.transportationExpenses != 1">No</p>
+                            </li>
+                            <li>
+                                <h4>Number of Students</h4>
+                                <p>{{ oppertunity?.numberOfOpportunities }}</p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="fi-wed-t three-wed">
+                        <h3><span class="icon-map-marker"></span>Location</h3>
+                        <h2>Dhahran - Eastern Province</h2>
+                        <img src="http://static-maps.yandex.ru/1.x/?lang=en-US&amp;ll=-73.7638,42.6564&amp;z=13&amp;l=map&amp;size=270,180" alt="Map"
+                            width="270">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

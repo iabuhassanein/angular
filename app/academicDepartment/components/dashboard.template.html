@@ -1,0 +1,193 @@
+<section class="header-section-sin">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="tit-page-wid">
+                    <div class="content-i">
+                        <h3 class="tit-stu">Hi, <span>{{ fullName }}</span> welcome to KFUPM<br>internships portal.</h3>
+                    </div>
+                </div>
+                <div class="tit-page-wid">
+                    <div class="page-wid-half">
+                        <div class="list-i-search">
+                            <h3><img src="/assets/images/icons/e-search.png">Quick Search</h3>
+                            <input type="text" placeholder="Student ID">
+                            <button type="submit">Search<img src="/assets/images/icons/arrow-right.png"></button>
+                        </div>
+                    </div>
+                    <div class="page-wid-half">
+                        <div class="item-hr">
+                            <a routerLink="/academic-department/reports">
+                            <div class="media head-yi">
+                                <div class="media-left" href="#">
+                                    <span class="icon-file"></span>
+                                </div>
+                                <div class="media-body">
+                                    <h2 class="media-heading">Reports</h2>
+                                    <p>Query different information to create a report.</p>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="header_s_2 tabs-header-s-2 tabs-header-s-m">
+                    <ul class="nav nav-tabs tabs-index ad-index">
+                        <li class="active"><a data-toggle="tab" href="#home">Pending Opportunities</a></li>
+                        <li><a data-toggle="tab" href="#menu1">My Students</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content new-rt-y">
+                    <div id="home" class="tab-pane fade in active">
+                        <div class="form-to-tab-m">
+                            <div class="form-group half-wn">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <select class="form-control new-arrow sel-sty" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                            </div>
+                            <div class="sort-nm pull-left">
+                                <p>Sort by:</p>
+                                <span>Ascending  ↑</span>
+                                <span>Descending  ↓</span>
+                            </div>
+                            <div class="Status-nm pull-right">
+                                <span><img src="/assets/images/icons/tag-icon.png">Training Type +</span>
+                                <span><img src="/assets/images/icons/menu-icon.png">Status +</span>
+                            </div>
+                        </div>
+                        <hr class="line-nm">
+
+                        <div class="content-tab-n">
+                            <div class="last-loader" *ngIf="!noMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                            <div class="content-txt" *ngFor="let opp of oppData">
+                                <div class="head-yo">
+                                    <span class="rdial-col" [class.rdial-wating]="opp.isApproved == 0">
+                                            <p></p>
+                                        </span>
+                                    <div class="head-body">
+                                        <h2 class="media-heading">{{ opp.englishTitle }}
+                                        </h2>
+                                        <ul [class.rdial-wating]="opp.isApproved == 0">
+                                            <li>{{ opp.training_program?.typeOfProgram }}</li>
+                                            <li>{{ opp.city }}</li>
+                                            <li class="active-li" *ngIf="opp.isApproved == 1"><span>{{ opp.applied }}</span>Applied</li>
+                                            <li class="active-li" *ngIf="opp.isApproved == 0"><span></span>Wating Approval</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <button class="appl" routerLink="/academic-department/opportunity/{{ opp.id }}">{{ (opp.isApproved == 1)?'View':'View To Approve' }}</button>
+                            </div>
+
+
+                            <ul class="pagination new-paginati" *ngIf="opp_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of opp_pages; let $i = index;"><a class="page-link" (click)="goToPage($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <div class="form-to-tab-m">
+                            <div class="form-group half-wn">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <select class="form-control new-arrow sel-sty" id="sel1">
+                                        <option>City</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                            </div>
+                            <div class="sort-nm pull-left">
+                                <p>Sort by:</p>
+                                <span>Ascending  ↑</span>
+                                <span>Descending  ↓</span>
+                            </div>
+                            <div class="Status-nm pull-right">
+                                <span>Training Type +</span>
+                                <span>Status +</span>
+                            </div>
+                        </div>
+                        <hr class="line-nm">
+                        <div class="popup-we">
+                            <h3><span class="icon-gleamcopy"></span>Accepte Offer?</h3>
+                            <p><span>Are you sure to accepte the offer?</span>
+                                <br>all the other offers will be rejected.</p>
+                            <div class="popup-btn">
+
+                                <button class="accept-btn">Accepte</button>
+                                <button class="cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                        
+                        <div class="content-tab-n">
+                            <div class="new-tit-pages-r">
+                                <h3>Students</h3>
+                                <h3>Coordinator</h3>
+                            </div>
+                            <div class="last-loader" *ngIf="(stdData.length == 0) && !noMoreS"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                            <div class="content-txt" *ngFor="let std of stdData; let $i = index">
+                                <div class="head-ym-e">
+                                    <a class="hed-left redial-co" routerLink="/academic-department/student/{{ std?.id }}">
+                                        <span>{{ getFirstChar(std?.user_info?.firstName) }}</span>
+                                    </a>
+                                    <div class="head-body">
+                                        <h2 class="media-heading">{{ std?.user_info?.firstName }} {{ std?.user_info?.lastName }}
+                                            <span class="appl-po-to" routerLink="/academic-department/student/{{ std?.id }}">More Info</span>
+                                        </h2>
+                                        <ul>
+                                            <li>+966 {{ std?.user_info?.phone }}</li>
+                                            <li>{{ std.trainingStatus }}</li>
+                                            <!--<li>{{ std.opportunity?.training_program?.typeOfProgram }}</li>
+                                            <li>{{ std.opportunity?.city }}</li>-->
+                                        </ul>
+                                    </div>
+                                    <select class="appp-select-y" (change)="changecoordinator(std.id, $event.target.value)" [disabled]="changingCoord">
+                                            <option value="0">Select Coordinator</option>
+                                            <option *ngFor="let coord of coordinatorsData" value="{{ coord.id }}" [selected]="coord.id == std.academic_department_coordinator?.id">{{ coord.user_info?.firstName }} {{ coord.user_info?.lastName }}</option>
+                                        </select>
+                                </div>
+                            </div>
+
+                            <ul class="pagination new-paginati" *ngIf="std_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageS(currentPageS - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of std_pages; let $i = index;"><a class="page-link" (click)="goToPageS($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageS(currentPageS + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,241 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/training-department">Training Department</a></li>
+                            <li class="breadcrumb-item active">Student</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content-single head-ad-st newrt-b">
+                    <h2><span class="icon-user"></span>Students Information</h2>
+                    <h1>{{ student?.user_info?.firstName }} {{ student?.user_info?.lastName }}</h1>
+                    <div class="new-list-r new-list-rl new-list-rn">
+                        <ul>
+                            <li>
+                                <p>GPA</p><span>{{ student?.GPA }}</span>
+                            </li>
+                            <li>
+                                <p>Phone Number</p><span>{{ student?.user_info?.phone }}</span>
+                            </li>
+                            <li>
+                                <p>City</p><span>{{ student?.city }}</span>
+                            </li>
+                            <li>
+                                <p>Training Status</p><span>{{ student?.trainingStatus }}</span>
+                            </li>
+                            <li>
+                                <p>Major</p><span>{{ student?.major }}</span>
+                            </li>
+                            <li>
+                                <p>Training Type</p><span>{{ student?.training_programs?.typeOfProgram }} Training</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list-wedg-y">
+                    <h2><img src="/assets/images/icons/magic-wand.png">Actions</h2>
+                    <ul class="liat-ibn">
+                        <li>Enable to Apply<span class="icon-gleam"></span></li>
+                        <li>Dismiss From Company<span class="icon-delete-usercopy"></span></li>
+                        <li>Change Company<span class="icon-refresh-2"></span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="accordion">
+
+                    <div class="accordion-section" *ngFor="let appOpp of opps_data">
+                        <div class="tit-sing-stu curs-po">
+                            <div class="pull-left">
+                                <span class="active-pag" [class.incomplete]="appOpp.status == 'incomplete'">{{ appOpp.status }}</span>
+                                <div class="txt-ti-stu">
+                                    <h3>{{ appOpp.opportunity?.englishTitle }}</h3>
+                                    <button class="btn-mk">{{ appOpp.opportunity?.company?.englishName }}</button>
+                                    <button class="btn-mk">{{ appOpp.opportunity?.city }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-section-content">
+                            <div class="content-topic content-topic-bg">
+                                <div class="pull-left topic-lo">
+                                    <div class="new-txt-t">
+                                        <h3>Opportuinty Job Description</h3>
+                                        <p>{{ appOpp.opportunity?.englishDescription }}</p>
+                                        <h3>Training Plan</h3>
+                                        <p>{{ appOpp.opportunity?.trainingPlan }}</p>
+                                    </div>
+                                    <ul class="list-date">
+                                        <li>{{ appOpp.opportunity?.created_at | date:longDate }} </li>
+                                        <li>by <span>{{ appOpp.opportunity?.company?.englishName }}</span> </li>
+                                        <li> | in<span>{{ appOpp.opportunity?.academicDepartment?.name }}</span></li>
+                                    </ul>
+                                    <div class="about-stu new-txt-to">
+                                        <h3>About Company</h3>
+                                        <div class="media all-elem">
+                                            <a class="media-left img-ui-k" href="#">
+                                                <img class="media-object" *ngIf="appOpp.opportunity?.company?.logo" src="{{ _base_url_img }}/image/80x80/{{ appOpp.opportunity?.company?.logo }}"
+                                                    alt="#">
+                                            </a>
+                                            <div class="media-body img-ui-m">
+                                                <h4 class="media-heading">{{ appOpp.opportunity?.company?.englishName }}</h4>
+                                                <span>{{ appOpp.opportunity?.company?.city }} - {{ appOpp.opportunity?.company?.country }}</span>
+                                                <p>{{ appOpp.opportunity?.company?.englishAbout }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="boxs-stu new-txt-t">
+                                        <div class="half-boxs">
+                                            <h3>Company’s Supervisor</h3>
+                                            <ul>
+                                                <li>{{ appOpp.company_supervisor?.user_info?.firstName }} {{ appOpp.company_supervisor?.user_info?.lastName
+                                                    }}
+                                                </li>
+                                                <li>Job Title -<span> {{ appOpp.company_supervisor?.jobTitle }}</span></li>
+                                                <li>Phone:<span>{{ appOpp.company_supervisor?.user_info?.phone }}</span></li>
+                                                <li>Email:<span>{{ appOpp.company_supervisor?.user_info?.email }}</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="half-boxs">
+                                            <h3>Academic Coordinator</h3>
+                                            <ul>
+                                                <li>{{ appOpp.academic_department_coordinator?.user_info?.firstName }} {{ appOpp.academic_department_coordinator?.user_info?.lastName
+                                                    }}
+                                                </li>
+                                                <li>Job Title -<span> {{ appOpp.academic_department_coordinator?.jobTitle }}</span></li>
+                                                <li>Phone:<span>{{ appOpp.academic_department_coordinator?.user_info?.phone }}</span></li>
+                                                <li>Email:<span>{{ appOpp.academic_department_coordinator?.user_info?.email }}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-left topic-lk">
+                                    <div class="fi-wed-t fi-wed">
+                                        <h3><span class="icon-bars"></span>Uploaded Files</h3>
+                                        <ul>
+                                            <li *ngFor="let file of appOpp.opportunity?.files">
+                                                <span class="icon-doc-file"></span>
+                                                <a target="_blank" href="{{ _base_url }}file/{{ file.filename }}">
+                                                    <h4>{{ file.original_name }} .{{ file.file_type }}</h4>
+                                                </a>
+                                                <p>{{ file.created_at | date:mediumDate }}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="fi-wed-t seca-wed">
+                                        <h3><span class="icon-bars"></span>Overview</h3>
+                                        <ul>
+                                            <li>
+                                                <h4>Duration</h4>
+                                                <p>{{ appOpp.opportunity?.training_program?.duration }}</p>
+                                            </li>
+                                            <li>
+                                                <h4>Salary</h4>
+                                                <p>{{ appOpp.opportunity?.salary }} SAR</p>
+                                            </li>
+                                            <li>
+                                                <h4>Housing</h4>
+                                                <p *ngIf="appOpp.opportunity?.housingExpenses">Yes</p>
+                                                <p *ngIf="appOpp.opportunity?.housingExpenses">No</p>
+                                            </li>
+                                            <li>
+                                                <h4>Transportation</h4>
+                                                <p *ngIf="appOpp.opportunity?.transportationExpenses">Yes</p>
+                                                <p *ngIf="appOpp.opportunity?.transportationExpenses">No</p>
+                                            </li>
+                                            <li>
+                                                <h4>Number of Students</h4>
+                                                <p>{{ appOpp.opportunity?.numberOfOpportunities }}</p>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="fi-wed-t three-wed">
+                                        <h3><span class="icon-map-marker"></span>Location</h3>
+                                        <h2>{{ appOpp.opportunity?.city }} - {{ appOpp.opportunity?.country }}</h2>
+                                        <img width="270" src="http://static-maps.yandex.ru/1.x/?lang=en-US&ll=-73.7638,42.6564&z=13&l=map&size=270,180" alt="Map">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6 margin-btn">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="content-single-pl comments content-single-plk">
+                    <div class="tit-shared-co">
+                        <h3 class="pull-left"><img src="/assets/images/icons/chat.png">Shared Notes</h3>
+                        <h4 class="pull-right" *ngIf="comments[0]">Last Update On: {{ comments[0]?.updated_at | date:longDate }}</h4>
+                    </div>
+                    <div class="comments-b">
+
+                        <div class="comment-sig" *ngFor="let comment of comments">
+                            <h2 class="first-ad-opp">{{ comment.user_info?.firstName }} {{ comment.user_info?.lastName }} -<span>{{ comment.employee }}</span></h2>
+                            <span>{{ comment.updated_at | date:longDate }}</span>
+                            <p>{{ comment.comment }}</p>
+                        </div>
+
+                    </div>
+                    <div class="leave-comment leave-comment-to">
+                        <h2><img src="/assets/images/icons/e-icon.png">Leave a comment</h2>
+                        <form [formGroup]="addCommentForm">
+                            <div class="inputControl">
+                                <textarea class="form-control" name="commentBody" formControlName="commentBody" id="commentBody" #commentBody placeholder="Write your comment here..."></textarea>
+                                <control-messages [control]="addCommentForm.controls.commentBody"></control-messages>
+                            </div>
+                            <button (click)="addNewComment()" [disabled]="!this.addCommentForm.valid || isCommenting" [class.submit-btn-loader]="isCommenting">Submit <i class="fa fa-cog fa-spin fa-3x fa-fw loader-icon"></i></button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="wedgit-pl-o">
+                    <h4><img src="/assets/images/icons/flag.png">Student Log</h4>
+                    <ul class="new-list-wq">
+                        <li *ngFor="let obj of stdLogs">
+                            <h3>{{ obj.fullName }}</h3>
+                            <p>{{ obj.info }}</p>
+                            <span>{{ obj.created_at | date:longDate }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

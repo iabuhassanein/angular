@@ -1,0 +1,99 @@
+<section class="header-section-sin" style="background-image: url(/assets/images/index-im.jpg);">
+    <div class="container">
+        <ng-header [isLoggingIn]="isLoggindInb"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="index-page-wid">
+                    <h3>Internships Portal</h3>
+                    <span>Training Department - Deanship of Student Affairs</span>
+                    <div class="all-btn-head">
+                        <button *ngIf="isLoggindIn != 'ROLE_COMPANY_COORDINATOR'" class="login-he-btn" routerLink="/student">{{ (isLoggindIn == 'ROLE_STUDENT')?'Students Profile':'Students Login' }}</button>
+                        <div class="new-btns-g">
+                            <button class="companies-he-btn" [class.full-radius]="isLoggindIn == 'ROLE_COMPANY_COORDINATOR'" routerLink="/company">{{ (isLoggindIn == 'no')? 'Companies Login' : ( (isLoggindIn == 'ROLE_COMPANY_COORDINATOR') ? 'Companies Profile' : 'Companies Login' ) }}</button>
+                            <a class="registration-he-btn" routerLink="company/register" *ngIf="isLoggindIn != 'ROLE_COMPANY_COORDINATOR'">Registration</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_55">
+    <div class="container">
+        <div class="row">
+            <div class="tit-page-wid">
+                <div class="new-box-top new-box-top-n">
+                    <h3><span class="icon-speaker"></span>Announcements</h3>
+                    <div class="owl-th">
+                        <owl-carousel [options]="{rewindNav: true, pagination: true, loop: true, dots: true, autoplay: true, autoplayTimeout: 2500, autoplayHoverPause: true, items: 1}"
+                            [items]="announcements" [carouselClasses]="['owl-carousel']">
+                            <div class="item" *ngFor="let item of announcements">
+                                <div class="first_ite_s">
+                                    <div class="text_ite_s">
+                                        <h4>{{ item.title }}</h4>
+                                        <p>{{ item.description | str_limit : 150 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </owl-carousel>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_33">
+    <div class="container">
+        <div class="row">
+            <h2 class="tit-page-s">News & Contents</h2>
+            <p class="sub-tit-s">Content and tips to help you find your next opportunity</p>
+            <div class="col-md-8">
+                <news>
+                    <div class="col-md-12">
+                        <img src="/assets/images/logoloader.gif">
+                    </div>
+                </news>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-wedgit">
+                    <h2 class="tit-we-inf"><span class="icon-news-paper"></span>Academic Calendar</h2>
+                    <ul class="list-wed-sin">
+                        <event-calendar>
+                            
+                        </event-calendar>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6 n-bosx">
+    <div class="container wi-960">
+        <div class="row">
+            <h2>Contact us for more details</h2>
+            <div class="col-md-4">
+                <div class="new-box-post">
+                    <span class="icon-map-marker"></span>
+                    <h3>Address</h3>
+                    <p>Dhahran, 31261, Kingdom of Saudi Arabia.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="new-box-post">
+                    <span class="icon-call new-call-icon"></span>
+                    <h3>Phone</h3>
+                    <p>+966 (13) 860 0000</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="new-box-post">
+                    <span class="icon-mail new-call-icon"></span>
+                    <h3>Email</h3>
+                    <p>info@kfupm.edu.sa</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

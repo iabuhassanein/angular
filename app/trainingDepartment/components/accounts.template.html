@@ -1,0 +1,396 @@
+<section class="header-section">
+    <div class="container">
+        <ng-header [isLoggingIn]="true"></ng-header>
+    </div>
+    <div class="head-textt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-left content-i">
+                        <a href="#">
+                            <h2><span class="icon-arrows"></span>back</h2>
+                        </a>
+                        <p>Go back to previous page</p>
+                    </div>
+                    <div class="pull-right content-u">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                            <li class="breadcrumb-item"><a routerLink="/training-department">Training Department</a></li>
+                            <li class="breadcrumb-item active">Accounts Management</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="s_6">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="bg-white">
+                    <div class="fi-wed-t seca-wed bg-bla">
+                        <ul>
+                            <li class="active">
+                                <a href="#1a" data-toggle="tab">
+                                    <h3><span class="icon-helm"></span>Training Department</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#2a" data-toggle="tab">
+                                    <h3><span class="icon-notebook"></span>Academic Department</h3>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#3a" data-toggle="tab">
+                                    <h3><span class="icon-study"></span>Students</h3>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content clearfix">
+                    <div class="tab-pane active" id="1a">
+                        <div class="content-single-pl content-single-pln-re">
+                            <!--<form [formGroup]="filterForm">
+                                <div class="form-to-tabp">
+                                    <div class="form-to-tab-mk">
+                                        <h3 class="tit-pa-serc"><img src="/assets/images/icons/e-search.png">Search</h3>
+                                        <div class="form-group half-wnk">
+                                            <input name="search" formControlName="search" id="search" #search type="text" placeholder="Search..." class="form-control">
+                                            <select name="role" formControlName="role" id="role" #role class="form-control new-arrow sel-styk" id="sel1">
+                                            <option value="0">Role</option>
+                                            <option *ngFor="let rr of FilterData.roles" value="{{ rr.id }}">{{ rr.name }}</option>
+                                        </select>
+                                        </div>
+                                        <div class="co-one-rep co-one-rep-k">
+                                            <select name="major" formControlName="major" id="major" #major>
+                                        <option value="0">Major</option>
+                                        <option *ngFor="let m of FilterData.academicDepartments" value="{{ m.id }}">{{ m.name }}</option>
+                                    </select>
+                                            <select name="collage" formControlName="collage" id="collage" #collage>
+                                        <option value="0">collage</option>
+                                        <option *ngFor="let c of FilterData.collages" value="{{ c.id }}">{{ c.name }}</option>
+                                    </select>
+                                        </div>
+                                        <div class="new-fo-rep">
+                                            <input type="checkbox" value="1" id="checkboxOneInput" name="" />
+                                            <label for="checkboxOneInput">Co-op</label>
+                                        </div>
+                                        <div class="new-fo-rep">
+                                            <input type="checkbox" value="2" id="checkboxOneInput2" name="" />
+                                            <label for="checkboxOneInput2">Summer Training</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>-->
+                            <div class="tit-sing-stu">
+                                <div class="pull-left">
+                                    <div class="txt-ti-stu new-opp">
+                                        <h3>Accounts Management</h3>
+                                        <p><span class="icon-notebook"></span>Training Department</p>
+                                    </div>
+                                </div>
+                                <!--
+                                    <div class="pull-right">
+                                        <a href="#" class="edit-btn-m">Edit</a>
+                                    </div>
+-->
+                            </div>
+                            <div class="content-topic">
+                                <div class="table-reports table-reportsn">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Coordinator Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>Login<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                    <th>Phone<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>Email<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="new-scrolb">
+
+                                                <tr *ngFor="let obj of tdData">
+                                                    <td>{{ obj.user_info?.firstName }} {{ obj.user_info?.lastName }}</td>
+                                                    <td>{{ obj.user_info?.login }}</td>
+                                                    <td>{{ obj.user_info?.phone }}</td>
+                                                    <td>{{ obj.user_info?.email }}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="last-loader" *ngIf="(tdData.length == 0) && !tdNoMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pagination new-paginati" *ngIf="td_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="tdGoToPage(tdCurrentPage - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of td_pages; let $i = index;"><a class="page-link" [class.active]="tdCurrentPage == $i+1" (click)="tdGoToPage($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="tdGoToPage(tdCurrentPage + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="2a">
+                        <div class="content-single-pl content-single-pln-re">
+                            <div class="form-to-tabp">
+                                <div class="form-to-tab-mk">
+                                    <h3 class="tit-pa-serc"><img src="/assets/images/icons/e-search.png">Search</h3>
+                                    <div class="form-group half-wnk">
+                                        <input type="text" placeholder="Search..." class="form-control">
+                                        <select class="form-control new-arrow sel-styk" id="sel1">
+                                        <option>Role</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                        <div class="co-one-rep co-one-rep-k">
+                                            <select>
+                                        <option value="Major">Major</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                            <select>
+                                        <option value="Major">Major</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                            <select>
+                                        <option value="Major">Major</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                            <div class="new-fo-rep">
+                                                <input type="checkbox" value="1" id="checkboxOneInput" name="" />
+                                                <label for="checkboxOneInput">Co-op</label>
+                                            </div>
+                                            <div class="new-fo-rep">
+                                                <input type="checkbox" value="2" id="checkboxOneInput2" name="" />
+                                                <label for="checkboxOneInput2">Summer Training</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tit-sing-stu">
+                                <div class="pull-left">
+                                    <div class="txt-ti-stu new-opp">
+                                        <h3>Accounts Management</h3>
+                                        <p><span class="icon-notebook"></span>Academic Department</p>
+                                    </div>
+                                </div>
+                                <!--
+                                    <div class="pull-right">
+                                        <a href="#" class="edit-btn-m">Edit</a>
+                                    </div>
+-->
+                            </div>
+                            <div class="content-topic">
+                                <div class="table-reports table-reportsn">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Coordinator Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>Login<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                    <th>Phone<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>Major<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                    <th>College<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="new-scrolb">
+
+                                                <tr *ngFor="let obj of adcData">
+                                                    <td>{{ obj.user_info?.firstName }} {{ obj.user_info?.lastName }}</td>
+                                                    <td>{{ obj.user_info?.login }}</td>
+                                                    <td>{{ obj.user_info?.phone }}</td>
+                                                    <td>{{ obj.academic_department?.name }}</td>
+                                                    <td>{{ obj.academic_department?.info }}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="last-loader" *ngIf="(adcData.length == 0) && !adcNoMore"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="pagination new-paginati" *ngIf="adc_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="adcGoToPage(adcCurrentPage - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of adc_pages; let $i = index;"><a class="page-link" [class.active]="adcCurrentPage == $i+1" (click)="adcGoToPage($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="adcGoToPage(adcCurrentPage + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="3a">
+                        <div class="content-single-pl content-single-pln-re">
+                            <div class="form-to-tabp">
+                                <div class="form-to-tab-mk">
+                                    <h3 class="tit-pa-serc"><img src="/assets/images/icons/e-search.png">Search</h3>
+                                    <div class="form-group half-wnk">
+                                        <input type="text" placeholder="Search..." class="form-control">
+                                        <select class="form-control new-arrow sel-styk" id="sel1">
+                                        <option>Role</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                        <div class="co-one-rep co-one-rep-k">
+                                            <select>
+                                        <option value="Major">Major</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                            <select>
+                                        <option value="Major">Major</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                            <select>
+                                        <option value="Major">Major</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                            <div class="new-fo-rep">
+                                                <input type="checkbox" value="1" id="checkboxOneInput" name="" />
+                                                <label for="checkboxOneInput">Co-op</label>
+                                            </div>
+                                            <div class="new-fo-rep">
+                                                <input type="checkbox" value="2" id="checkboxOneInput2" name="" />
+                                                <label for="checkboxOneInput2">Summer Training</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tit-sing-stu">
+                                <div class="pull-left">
+                                    <div class="txt-ti-stu new-opp">
+                                        <h3>Account Management</h3>
+                                        <p><span class="icon-notebook"></span>Students</p>
+                                    </div>
+                                </div>
+                                <!--
+                                    <div class="pull-right">
+                                        <a href="#" class="edit-btn-m">Edit</a>
+                                    </div>
+-->
+                            </div>
+                            <div class="content-topic">
+                                <div class="table-reports table-reportsn">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student Name<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>ID#<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                    <th>GPA<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                    <th>Major<i class="fa fa-long-arrow-down" aria-hidden="true"></i></th>
+                                                    <th>College<i class="fa fa-long-arrow-up" aria-hidden="true"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="new-scrolb">
+
+                                                <tr *ngFor="let std of stdData">
+                                                    <td>{{ std.user_info?.firstName }} {{ std.user_info?.lastName }}</td>
+                                                    <td>{{ std.studentID }}</td>
+                                                    <td>{{ std.GPA }}</td>
+                                                    <td>{{ std.majorBranch }}</td>
+                                                    <td>{{ std.major }}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="last-loader" *ngIf="(stdData.length == 0) && !noMoreS"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="pagination new-paginati" *ngIf="std_pages.length > 1">
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageS(currentPageS - 1)" aria-label="Previous">
+                                        <span><i class="fa fa-angle-left" aria-hidden="true"></i> Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" *ngFor="let page of std_pages; let $i = index;"><a class="page-link" [class.active]="currentPageS == $i+1" (click)="goToPageS($i+1)">{{ $i+1 }}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="goToPageS(currentPageS + 1)" aria-label="Next">
+                                        <span>Next <i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="bg-white marg-bottom">
+                    <div class="col-md-12">
+                        <div class="new-form-b new-padk">
+                            <div class="new-cheb">
+                                <span><span class="icon-portfolio"></span>Create New Account</span>
+                            </div>
+                            <div class="txt-center">
+                                <button id="new-clil" class="btn new-green n-clickj">New Account</button>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="line-io"></span>
+                    <div class="hide-mk">
+                        <div class="col-md-8">
+                            <form class="new-form-b">
+                                <div class="form-group">
+                                    <label for="emailx">Name:</label>
+                                    <input type="text" class="form-control" id="emailx">
+                                </div>
+                                <div class="form-group">
+                                    <label for="adds">Postion:</label>
+                                    <input type="text" class="form-control" id="adds">
+                                </div>
+                                <div class="form-group">
+                                    <label for="webs">Email:</label>
+                                    <input type="text" class="form-control" id="webs">
+                                </div>
+                                <div class="form-group half-w">
+                                    <label for="webs">Mobile:</label>
+                                    <input type="text" class="form-control" id="webs">
+                                </div>
+                                <div class="form-group half-w half-media">
+                                    <label for="webs">Phone:</label>
+                                    <input type="text" class="form-control" id="webs">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+
+</section>
