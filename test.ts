@@ -31,4 +31,4 @@ context.keys().map(context);
 // Finally, start Karma to run the tests.
 __karma__.start();
 // end of the file
-// ok commit for IT-1
+// ok commit for IT-1 2
